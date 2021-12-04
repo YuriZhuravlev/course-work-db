@@ -4,11 +4,10 @@ import java.util.*
 
 /**
  * Защита
- * @param council название совета
  */
 data class Protection(
     val id: Long,
     val name: String,
-    val council: String,
+    val councilId: Long,
     val date: Date
 )

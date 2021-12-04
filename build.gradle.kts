@@ -5,6 +5,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.5.31"
     id("org.jetbrains.compose") version "1.0.0"
+//    kotlin("kapt") version "1.6.0"
+//    kotlin("plugin.serialization") version "1.6.0"
 }
 
 group = "com.zhuravlev"
@@ -16,10 +18,19 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
+val exposedVersion: String by project
+
 dependencies {
     implementation(compose.desktop.windows_x64)
     implementation(compose.desktop.linux_x64)
     implementation(compose.desktop.linux_arm64)
+
+    // database
+    implementation("org.postgresql:postgresql:42.3.1")
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
 }
 
 tasks.withType<KotlinCompile>() {

@@ -3,11 +3,11 @@ package data.model
 import java.util.*
 
 /**
- * Награда
+ * Защита
  */
-data class Reward(
+data class ProtectionDetails(
     val id: Long,
     val name: String,
     val date: Date,
-    val postGraduateId: Long,
+    val diploma: DiplomaDetails,
 )
