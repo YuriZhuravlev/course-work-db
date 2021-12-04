@@ -7,7 +7,6 @@ import java.util.*
  */
 data class DBProtection(
     val id: Long,
-    val name: String,
     val councilId: Long,
     val date: Date
 )
