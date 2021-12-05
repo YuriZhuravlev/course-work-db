@@ -5,9 +5,11 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import base.DBColors
 import data.db.DAOPostgresql
+import di.MainModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import org.koin.core.context.startKoin
 import screen.main.MainView
 import screen.main.MainViewModel
 
@@ -23,6 +25,11 @@ fun App() {
 }
 
 fun main() = application {
+    startKoin {
+        printLogger()
+        modules(MainModule)
+    }
+
     Window(onCloseRequest = ::exitApplication, title = "Отдел аспирантуры ВУЗа") {
         App()
     }

@@ -19,11 +19,15 @@ repositories {
 }
 
 val exposedVersion: String by project
+val koinVersion: String by project
 
 dependencies {
     implementation(compose.desktop.windows_x64)
     implementation(compose.desktop.linux_x64)
     implementation(compose.desktop.linux_arm64)
+
+    // di
+    implementation("io.insert-koin:koin-core:$koinVersion")
 
     // database
     implementation("org.postgresql:postgresql:42.3.1")
