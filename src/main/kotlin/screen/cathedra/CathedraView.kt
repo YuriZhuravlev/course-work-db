@@ -1,13 +1,10 @@
-package screen.category
+package screen.cathedra
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -19,29 +16,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import data.Resource
-import data.model.Category
+import data.model.Cathedra
 import screen.NavState
 
 @Composable
-fun CategoryView(viewModel: CategoryViewModel) {
-    val categoriesState by viewModel.categories.collectAsState()
+fun CathedraView(viewModel: CathedraViewModel) {
+    val cathedraState by viewModel.cathedra.collectAsState()
 
 
-    val categories = categoriesState
+    val cathedra = cathedraState
     when {
-        categories is Resource.Empty -> {
-            viewModel.loadCategories()
+        cathedra is Resource.Empty -> {
+            viewModel.loadCathedra()
         }
-        categories is Resource.Success -> {
+        cathedra is Resource.Success -> {
             Column(Modifier.fillMaxSize()) {
                 Box(Modifier.fillMaxWidth().height(40.dp).padding(top = 20.dp, end = 20.dp)) {
                     Icon(imageVector = Icons.Default.Add, modifier = Modifier.clickable {
-                        viewModel.navigation(NavState.CategoryEdit)
+                        viewModel.navigation(NavState.CathedraEdit)
                     }.align(Alignment.TopEnd), contentDescription = "add")
                 }
-                LazyColumn(Modifier.padding(16.dp)) {
-                    items(items = categories.value) { item ->
-                        ColumnCategory(item, onDelete = viewModel::delete) {
+                LazyColumn(Modifier.padding(16.dp).fillMaxWidth()) {
+                    items(items = cathedra.value) { item ->
+                        ColumnCathedra(item, onDelete = viewModel::delete) {
                             viewModel.navigation(it)
                         }
                         Divider(modifier = Modifier.padding(vertical = 2.dp, horizontal = 16.dp))
@@ -49,7 +46,7 @@ fun CategoryView(viewModel: CategoryViewModel) {
                 }
             }
         }
-        categories.isLoading() -> {
+        cathedra.isLoading() -> {
             Box(Modifier.fillMaxSize()) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
@@ -58,27 +55,28 @@ fun CategoryView(viewModel: CategoryViewModel) {
 }
 
 @Composable
-private fun ColumnCategory(
-    category: Category,
-    onDelete: (Category) -> Unit,
+fun ColumnCathedra(
+    cathedra: Cathedra,
+    onDelete: (Cathedra) -> Unit,
     onClick: (NavState) -> Unit
 ) {
     val modifier = Modifier.fillMaxWidth()
-        .clickable {
-            val state = NavState.PostGraduatesByCategory
-            state.payload = category
-            onClick(state)
-        }
     Row(modifier = modifier) {
-        Text(text = category.id.toString(), modifier = Modifier.width(50.dp))
-        Text(text = category.name, modifier = Modifier.width(400.dp))
+        Text(text = cathedra.id.toString(), modifier = Modifier.width(50.dp).align(Alignment.CenterVertically))
+        Text(text = cathedra.name, modifier = Modifier.width(300.dp).align(Alignment.CenterVertically))
+        Button(onClick = { onClick(NavState.DirectorByCathedra) }, modifier = Modifier.weight(3f).padding(end = 4.dp)) {
+            Text("Научные руководители")
+        }
+        Button(onClick = { onClick(NavState.PostGraduatesByCathedra) }, modifier = Modifier.weight(2f)) {
+            Text("Аспиранты")
+        }
         Icon(Icons.Default.Edit, "edit", Modifier.clickable {
             val state = NavState.CategoryEdit
-            state.payload = category
+            state.payload = cathedra
             onClick(state)
-        })
+        }.align(Alignment.CenterVertically))
         Icon(Icons.Default.Delete, "delete", Modifier.clickable {
-            onDelete(category)
-        })
+            onDelete(cathedra)
+        }.align(Alignment.CenterVertically))
     }
 }

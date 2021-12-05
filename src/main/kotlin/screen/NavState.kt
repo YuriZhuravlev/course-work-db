@@ -26,6 +26,12 @@ enum class NavState {
     /** Учет сведений об аспирантах ВУЗа различных категорий (очные, заочные, соискатели, докторанты) */
     PostGraduatesByCategory,
 
+    DirectorByCathedra,
+    PostGraduatesByCathedra,
+    PostGraduatesByDirector,
+    PublicationByPostGraduate,
+    PublicationByDirector,
+
     /** Формирование списка аспирантов по кафедрам/научным руководителям */
     PostGraduateInfo,
 

@@ -14,6 +14,8 @@ import screen.NavState
 import screen.category.CategoryView
 import screen.category.edit.CategoryEditView
 import screen.category.edit.CategoryEditViewModel
+import screen.cathedra.CathedraView
+import screen.cathedra.edit.CathedraEditView
 import screen.post_graduates.PostGraduatesView
 import screen.post_graduates.PostGraduatesViewModel
 import ui.MenuView
@@ -39,7 +41,12 @@ fun MainView(viewModel: MainViewModel) {
                 NavState.CategoryEdit -> {
                     CategoryEditView(get().get<CategoryEditViewModel>().apply { setup(state.payload) })
                 }
-                NavState.Cathedra -> {}
+                NavState.Cathedra -> {
+                    CathedraView(get().get())
+                }
+                NavState.CathedraEdit -> {
+                    CathedraEditView(get().get())
+                }
                 NavState.Council -> {}
                 NavState.Protection -> {}
                 else -> {
