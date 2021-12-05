@@ -26,14 +26,12 @@ fun PostGraduatesView(viewModel: PostGraduatesViewModel) {
     val postGraduate = postGraduateState
     when {
         postGraduate is Resource.Empty -> {
-            viewModel.category?.let {
-                viewModel.loadPostGraduatesByCategory(it)
-            }
+            viewModel.loadPostGraduates()
         }
         postGraduate is Resource.Success -> {
             Column(Modifier.fillMaxSize()) {
-                Box(Modifier.fillMaxWidth().height(40.dp).padding(top = 8.dp, start = 20.dp)) {
-                    BigText(text = viewModel.category?.name ?: "")
+                Box(Modifier.fillMaxWidth().padding(top = 8.dp, start = 20.dp)) {
+                    BigText(text = viewModel.getHeader())
                 }
                 LazyColumn(Modifier.padding(16.dp)) {
                     itemsIndexed(items = postGraduate.value) { index, item ->

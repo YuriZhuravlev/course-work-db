@@ -67,7 +67,7 @@ private fun ColumnDirector(
 ) {
     val modifier = Modifier.fillMaxWidth()
         .clickable {
-            val state = NavState.DirectorDetails
+            val state = NavState.PostGraduatesByDirector
             state.payload = director
             onClick(state)
         }

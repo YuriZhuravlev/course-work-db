@@ -9,9 +9,9 @@ enum class NavState {
     DiplomaEdit,
     PostGraduateDetails,
     PostGraduateEdit,
-    PostGraduatesByCategory,
-    PostGraduatesByCathedra,
-    PostGraduatesByDirector,
+    PostGraduatesByCategory,//+
+    PostGraduatesByCathedra,//+
+    PostGraduatesByDirector,//+
     ProtectionByCouncil,
     ProtectionEdit,
     RewardEdit,
@@ -19,9 +19,8 @@ enum class NavState {
     CouncilEdit,
     Direction,
     DirectionEdit,
-    DirectorByCathedra,
-    DirectorEdit,
-    DirectorDetails,
+    DirectorByCathedra,//+
+    DirectorEdit,//+
     PublicationEdit,
     PublicationByDirector,
     PublicationByPostGraduate;

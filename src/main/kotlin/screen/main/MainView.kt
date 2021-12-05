@@ -57,6 +57,12 @@ fun MainView(viewModel: MainViewModel) {
                 NavState.DirectorEdit -> {
                     DirectorEditView(get().get<DirectorEditViewModel>().apply { setup(state.payload) })
                 }
+                NavState.PostGraduatesByDirector -> {
+                    PostGraduatesView(get().get<PostGraduatesViewModel>().apply { setup(state.payload) })
+                }
+                NavState.PostGraduatesByCathedra -> {
+                    PostGraduatesView(get().get<PostGraduatesViewModel>().apply { setup(state.payload) })
+                }
 //                NavState.Council -> {}
 //                NavState.ProtectionByCouncil -> {}
                 else -> {
