@@ -1,6 +1,8 @@
 package data.db
 
-import config.*
+import config.DB_PASSWORD
+import config.DB_URL
+import config.DB_USER
 import data.db.entity.*
 import data.model.*
 import org.jetbrains.exposed.sql.*
@@ -424,6 +426,32 @@ object DAOPostgresql : DAO {
     override fun deletePublication(publication: ScientificPublication) {
         transaction {
             PublicationTable.deleteWhere { PublicationTable.id eq publication.id }
+        }
+    }
+
+    override fun getRewardsByPostGraduate(id: Long): List<Reward> {
+        return transaction {
+            DBReward.find { RewardTable.postGraduateId eq id }.map {
+                Reward(
+                    it.id.value,
+                    it.name,
+                    it.date,
+                    it.postGraduateId
+                )
+            }
+        }
+    }
+
+    override fun getDiplomasByPostGraduate(id: Long): List<Diploma> {
+        return transaction {
+            DBDiploma.find { DiplomaTable.postGraduateId eq id }.map {
+                Diploma(
+                    it.id.value,
+                    it.name,
+                    it.postGraduateId,
+                    it.protectionId
+                )
+            }
         }
     }
 }

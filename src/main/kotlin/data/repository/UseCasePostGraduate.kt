@@ -10,6 +10,8 @@ interface UseCasePostGraduate {
     fun getPostGraduatesByDirector(id: Long): List<PostGraduate>
 
     fun getPostGraduateDetails(id: Long): PostGraduateDetails?
+    fun getRewardsByPostGraduate(id: Long): List<Reward>
+    fun getDiplomasByPostGraduate(id: Long): List<Diploma>
 
     fun insertPostGraduate(postGraduate: PostGraduate): Long
     fun updatePostGraduate(postGraduate: PostGraduate)
