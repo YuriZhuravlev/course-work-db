@@ -18,6 +18,8 @@ import screen.cathedra.CathedraView
 import screen.cathedra.edit.CathedraEditView
 import screen.director.DirectorView
 import screen.director.DirectorViewModel
+import screen.director.edit.DirectorEditView
+import screen.director.edit.DirectorEditViewModel
 import screen.post_graduates.PostGraduatesView
 import screen.post_graduates.PostGraduatesViewModel
 import ui.MenuView
@@ -51,6 +53,9 @@ fun MainView(viewModel: MainViewModel) {
                 }
                 NavState.DirectorByCathedra -> {
                     DirectorView(get().get<DirectorViewModel>().apply { setup(state.payload) })
+                }
+                NavState.DirectorEdit -> {
+                    DirectorEditView(get().get<DirectorEditViewModel>().apply { setup(state.payload) })
                 }
 //                NavState.Council -> {}
 //                NavState.ProtectionByCouncil -> {}

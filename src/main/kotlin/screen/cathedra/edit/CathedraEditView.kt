@@ -14,7 +14,7 @@ import ui.BigText
 import ui.BoldText
 
 private const val ID = "id"
-private const val NAME = "Название категории"
+private const val NAME = "Название кафедры"
 
 @Composable
 fun CathedraEditView(viewModel: CathedraEditViewModel) {
@@ -23,7 +23,7 @@ fun CathedraEditView(viewModel: CathedraEditViewModel) {
         val resultState by viewModel.result.collectAsState()
 
         if (resultState.isSuccess()) {
-            viewModel.navigation(NavState.Category)
+            viewModel.navigation(NavState.Cathedra)
         }
 
         val cathedra = cathedraState
