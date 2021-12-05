@@ -11,4 +11,5 @@ interface UseCaseDirector {
     suspend fun updateDirector(director: ScientificDirector)
     suspend fun deleteDirector(director: ScientificDirector)
     suspend fun getDirectorsByCathedra(cathedra: Cathedra): List<ScientificDirector>
+    suspend fun getDirectors(): List<ScientificDirector>
 }

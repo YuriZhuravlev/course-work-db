@@ -25,4 +25,8 @@ class UseCaseDirectorImpl(private val dao: DAO) : UseCaseDirector {
     override suspend fun getDirectorsByCathedra(cathedra: Cathedra): List<ScientificDirector> {
         return dao.getDirectorsByCathedra(cathedra.id)
     }
+
+    override suspend fun getDirectors(): List<ScientificDirector> {
+        return dao.getDirectors()
+    }
 }

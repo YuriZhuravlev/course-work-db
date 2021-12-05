@@ -7,6 +7,7 @@ interface DAO {
     fun getCathedras(): List<Cathedra>
     fun getCouncils(): List<ScientificCouncil>
     fun getDirections(): List<ScientificDirection>
+    fun getDirectors(): List<ScientificDirector>
 
     fun getPublicationsByDirector(id: Long): List<ScientificPublication>
     fun getPublicationsByPostGraduate(id: Long): List<ScientificPublication>

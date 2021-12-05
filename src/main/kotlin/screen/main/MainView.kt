@@ -25,6 +25,8 @@ import screen.director.edit.DirectorEditView
 import screen.director.edit.DirectorEditViewModel
 import screen.post_graduates.PostGraduatesView
 import screen.post_graduates.PostGraduatesViewModel
+import screen.post_graduates.edit.PostGraduatesEditView
+import screen.post_graduates.edit.PostGraduatesEditViewModel
 import ui.MenuView
 
 @Composable
@@ -71,6 +73,9 @@ fun MainView(viewModel: MainViewModel) {
                 }
                 NavState.DirectionEdit -> {
                     DirectionEditView(get().get<DirectionEditViewModel>().apply { setup(state.payload) })
+                }
+                NavState.PostGraduateEdit -> {
+                    PostGraduatesEditView(get().get<PostGraduatesEditViewModel>().apply { setup(state.payload) })
                 }
 //                NavState.Council -> {}
 //                NavState.ProtectionByCouncil -> {}

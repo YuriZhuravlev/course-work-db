@@ -24,10 +24,10 @@ class DirectorEditViewModel(
     private val _cathedra = MutableStateFlow(listOf<Cathedra>())
     val cathedra = _cathedra.asStateFlow()
 
-    fun setup(category: Any?) {
-        if (category is ScientificDirector) {
+    fun setup(director: Any?) {
+        if (director is ScientificDirector) {
             viewModelScope.launch {
-                _director.emit(category)
+                _director.emit(director)
             }
         }
         loadCathedra()

@@ -21,6 +21,7 @@ import screen.direction.edit.DirectionEditViewModel
 import screen.director.DirectorViewModel
 import screen.director.edit.DirectorEditViewModel
 import screen.post_graduates.PostGraduatesViewModel
+import screen.post_graduates.edit.PostGraduatesEditViewModel
 
 val MainModule = module {
     single<UseCasePublication> { UseCasePublicationImpl(DAOPostgresql) }
@@ -38,4 +39,5 @@ val MainModule = module {
     factory { DirectorEditViewModel(get(), get()) }
     factory { DirectionViewModel(get()) }
     factory { DirectionEditViewModel(get()) }
+    factory { PostGraduatesEditViewModel(get(), get()) }
 }
