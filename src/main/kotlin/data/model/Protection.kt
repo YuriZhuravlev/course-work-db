@@ -1,5 +1,6 @@
 package data.model
 
+import java.time.LocalDate
 import java.util.*
 
 /**
@@ -7,7 +8,6 @@ import java.util.*
  */
 data class Protection(
     val id: Long,
-    val name: String,
     val councilId: Long,
-    val date: Date
+    val date: LocalDate
 )

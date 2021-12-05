@@ -180,4 +180,250 @@ object DAOPostgresql : DAO {
             }
         }
     }
+
+    override fun insertCategory(category: Category): Long {
+        return transaction {
+            CategoryTable.insertAndGetId {
+                it[name] = category.name
+            }.value
+        }
+    }
+
+    override fun updateCategory(category: Category) {
+        transaction {
+            CategoryTable.update({ CategoryTable.id eq category.id }) {
+                it[name] = category.name
+            }
+        }
+    }
+
+    override fun deleteCategory(category: Category) {
+        transaction {
+            CategoryTable.deleteWhere { CategoryTable.id eq category.id }
+        }
+    }
+
+    override fun insertCathedra(cathedra: Cathedra): Long {
+        return transaction {
+            CathedraTable.insertAndGetId {
+                it[name] = cathedra.name
+            }.value
+        }
+    }
+
+    override fun updateCathedra(cathedra: Cathedra) {
+        transaction {
+            CathedraTable.update({ CathedraTable.id eq cathedra.id }) {
+                it[name] = cathedra.name
+            }
+        }
+    }
+
+    override fun deleteCathedra(cathedra: Cathedra) {
+        transaction {
+            CathedraTable.deleteWhere { CathedraTable.id eq cathedra.id }
+        }
+    }
+
+    override fun insertDiploma(diploma: Diploma): Long {
+        return transaction {
+            DiplomaTable.insertAndGetId {
+                it[name] = diploma.name
+                it[postGraduateId] = diploma.postGraduateId
+                it[protectionId] = diploma.protectionId
+            }.value
+        }
+    }
+
+    override fun updateDiploma(diploma: Diploma) {
+        transaction {
+            DiplomaTable.update({ DiplomaTable.id eq diploma.id }) {
+                it[name] = diploma.name
+                it[postGraduateId] = diploma.postGraduateId
+                it[protectionId] = diploma.protectionId
+            }
+        }
+    }
+
+    override fun deleteDiploma(diploma: Diploma) {
+        transaction {
+            DiplomaTable.deleteWhere { DiplomaTable.id eq diploma.id }
+        }
+    }
+
+    override fun insertPostGraduate(postGraduate: PostGraduate): Long {
+        return transaction {
+            PostGraduateTable.insertAndGetId {
+                it[name] = postGraduate.name
+                it[categoryId] = postGraduate.categoryId
+                it[surname] = postGraduate.surname
+                it[scientificDirectionId] = postGraduate.scientificDirectionId
+                it[scientificDirectorId] = postGraduate.scientificDirectorId
+            }.value
+        }
+    }
+
+    override fun updatePostGraduate(postGraduate: PostGraduate) {
+        transaction {
+            PostGraduateTable.update({ PostGraduateTable.id eq postGraduate.id }) {
+                it[name] = postGraduate.name
+                it[categoryId] = postGraduate.categoryId
+                it[surname] = postGraduate.surname
+                it[scientificDirectionId] = postGraduate.scientificDirectionId
+                it[scientificDirectorId] = postGraduate.scientificDirectorId
+            }
+        }
+    }
+
+    override fun deletePostGraduate(postGraduate: PostGraduate) {
+        transaction {
+            PostGraduateTable.deleteWhere { PostGraduateTable.id eq postGraduate.id }
+        }
+    }
+
+    override fun insertProtection(protection: Protection): Long {
+        return transaction {
+            ProtectionTable.insertAndGetId {
+                it[date] = protection.date
+                it[councilId] = protection.councilId
+            }.value
+        }
+    }
+
+    override fun updateProtection(protection: Protection) {
+        transaction {
+            ProtectionTable.update({ ProtectionTable.id eq protection.id }) {
+                it[date] = protection.date
+                it[councilId] = protection.councilId
+            }
+        }
+    }
+
+    override fun deleteProtection(protection: Protection) {
+        transaction {
+            ProtectionTable.deleteWhere { ProtectionTable.id eq protection.id }
+        }
+    }
+
+    override fun insertReward(reward: Reward): Long {
+        return transaction {
+            RewardTable.insertAndGetId {
+                it[name] = reward.name
+                it[date] = reward.date
+                it[postGraduateId] = reward.postGraduateId
+            }.value
+        }
+    }
+
+    override fun updateReward(reward: Reward) {
+        transaction {
+            RewardTable.update({ RewardTable.id eq reward.id }) {
+                it[name] = reward.name
+                it[date] = reward.date
+                it[postGraduateId] = reward.postGraduateId
+            }
+        }
+    }
+
+    override fun deleteReward(reward: Reward) {
+        transaction {
+            RewardTable.deleteWhere { RewardTable.id eq reward.id }
+        }
+    }
+
+    override fun insertCouncil(council: ScientificCouncil): Long {
+        return transaction {
+            CouncilTable.insertAndGetId {
+                it[name] = council.name
+            }.value
+        }
+    }
+
+    override fun updateCouncil(council: ScientificCouncil) {
+        transaction {
+            CouncilTable.update({ CouncilTable.id eq council.id }) {
+                it[name] = council.name
+            }
+        }
+    }
+
+    override fun deleteCouncil(council: ScientificCouncil) {
+        transaction {
+            CouncilTable.deleteWhere { CouncilTable.id eq council.id }
+        }
+    }
+
+    override fun insertDirection(direction: ScientificDirection): Long {
+        return transaction {
+            DirectionTable.insertAndGetId {
+                it[name] = direction.name
+            }.value
+        }
+    }
+
+    override fun updateDirection(direction: ScientificDirection) {
+        transaction {
+            DirectionTable.update({ DirectionTable.id eq direction.id }) {
+                it[name] = direction.name
+            }
+        }
+    }
+
+    override fun deleteDirection(direction: ScientificDirection) {
+        transaction {
+            DirectionTable.deleteWhere { DirectionTable.id eq direction.id }
+        }
+    }
+
+    override fun insertDirector(director: ScientificDirector): Long {
+        return transaction {
+            DirectorTable.insertAndGetId {
+                it[name] = director.name
+                it[surname] = director.surname
+                it[cathedraId] = director.cathedraId
+            }.value
+        }
+    }
+
+    override fun updateDirector(director: ScientificDirector) {
+        transaction {
+            DirectorTable.update({ DirectorTable.id eq director.id }) {
+                it[name] = director.name
+                it[surname] = director.surname
+                it[cathedraId] = director.cathedraId
+            }
+        }
+    }
+
+    override fun deleteDirector(director: ScientificDirector) {
+        transaction {
+            DirectorTable.deleteWhere { DirectorTable.id eq director.id }
+        }
+    }
+
+    override fun insertPublication(publication: ScientificPublication): Long {
+        return transaction {
+            PublicationTable.insertAndGetId {
+                it[name] = publication.name
+                it[date] = publication.date
+                it[postGraduateId] = publication.postGraduateId
+            }.value
+        }
+    }
+
+    override fun updatePublication(publication: ScientificPublication) {
+        transaction {
+            PublicationTable.update({ PublicationTable.id eq publication.id }) {
+                it[name] = publication.name
+                it[date] = publication.date
+                it[postGraduateId] = publication.postGraduateId
+            }
+        }
+    }
+
+    override fun deletePublication(publication: ScientificPublication) {
+        transaction {
+            PublicationTable.deleteWhere { PublicationTable.id eq publication.id }
+        }
+    }
 }

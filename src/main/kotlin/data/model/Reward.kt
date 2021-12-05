@@ -1,6 +1,6 @@
 package data.model
 
-import java.util.*
+import java.time.LocalDate
 
 /**
  * Награда
@@ -8,6 +8,6 @@ import java.util.*
 data class Reward(
     val id: Long,
     val name: String,
-    val date: Date,
+    val date: LocalDate,
     val postGraduateId: Long,
 )
