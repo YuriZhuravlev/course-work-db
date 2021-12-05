@@ -12,6 +12,7 @@ interface DAO {
     fun getRewardsByPostGraduate(id: Long): List<Reward>
     fun getDiplomasByPostGraduate(id: Long): List<Diploma>
 
+    fun getDirectorsByCathedra(id: Long): List<ScientificDirector>
     fun getPostGraduatesByCategory(id: Long): List<PostGraduate>
     fun getPostGraduatesByCathedra(id: Long): List<PostGraduate>
     fun getPostGraduatesByDirector(id: Long): List<PostGraduate>

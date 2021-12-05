@@ -454,4 +454,17 @@ object DAOPostgresql : DAO {
             }
         }
     }
+
+    override fun getDirectorsByCathedra(id: Long): List<ScientificDirector> {
+        return transaction {
+            DBScientificDirector.find { DirectorTable.cathedraId eq id }.map {
+                ScientificDirector(
+                    it.id.value,
+                    it.name,
+                    it.surname,
+                    it.cathedraId
+                )
+            }
+        }
+    }
 }

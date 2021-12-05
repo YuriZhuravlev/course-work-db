@@ -64,10 +64,18 @@ fun ColumnCathedra(
     Row(modifier = modifier) {
         Text(text = cathedra.id.toString(), modifier = Modifier.width(50.dp).align(Alignment.CenterVertically))
         Text(text = cathedra.name, modifier = Modifier.width(300.dp).align(Alignment.CenterVertically))
-        Button(onClick = { onClick(NavState.DirectorByCathedra) }, modifier = Modifier.weight(3f).padding(end = 4.dp)) {
+        Button(onClick = {
+            val state = NavState.DirectorByCathedra
+            state.payload = cathedra
+            onClick(state)
+        }, modifier = Modifier.weight(3f).padding(end = 4.dp)) {
             Text("Научные руководители")
         }
-        Button(onClick = { onClick(NavState.PostGraduatesByCathedra) }, modifier = Modifier.weight(2f)) {
+        Button(onClick = {
+            val state = NavState.PostGraduatesByCathedra
+            state.payload = cathedra
+            onClick(state)
+        }, modifier = Modifier.weight(2f)) {
             Text("Аспиранты")
         }
         Icon(Icons.Default.Edit, "edit", Modifier.clickable {

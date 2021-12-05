@@ -16,6 +16,7 @@ import screen.category.CategoryViewModel
 import screen.category.edit.CategoryEditViewModel
 import screen.cathedra.CathedraViewModel
 import screen.cathedra.edit.CathedraEditViewModel
+import screen.director.DirectorViewModel
 import screen.post_graduates.PostGraduatesViewModel
 
 val MainModule = module {
@@ -30,4 +31,5 @@ val MainModule = module {
     factory { CategoryEditViewModel(get()) }
     factory { CathedraViewModel(get()) }
     factory { CathedraEditViewModel(get()) }
+    factory { DirectorViewModel(get()) }
 }

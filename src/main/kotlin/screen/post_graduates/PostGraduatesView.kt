@@ -60,7 +60,7 @@ private fun ColumnPostGraduate(
 ) {
     val modifier = Modifier.fillMaxWidth()
         .clickable {
-            val state = NavState.PostGraduateInfo
+            val state = NavState.PostGraduateDetails
             state.payload = postGraduate
             onClick(state)
         }

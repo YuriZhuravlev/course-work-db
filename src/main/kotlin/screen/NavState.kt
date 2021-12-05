@@ -2,47 +2,29 @@ package screen
 
 enum class NavState {
     Main,
-    Category,
-    CategoryEdit,
-    Cathedra,
-    CathedraEdit,
-    Diploma,
+    Category,//+
+    CategoryEdit,//+
+    Cathedra,//+
+    CathedraEdit,//+
     DiplomaEdit,
-    PostGraduate,
+    PostGraduateDetails,
     PostGraduateEdit,
-    Protection,
+    PostGraduatesByCategory,
+    PostGraduatesByCathedra,
+    PostGraduatesByDirector,
+    ProtectionByCouncil,
     ProtectionEdit,
-    Reward,
     RewardEdit,
     Council,
     CouncilEdit,
     Direction,
     DirectionEdit,
-    Director,
-    DirectorEdit,
-    Publication,
-    PublicationEdit,
-
-    /** Учет сведений об аспирантах ВУЗа различных категорий (очные, заочные, соискатели, докторанты) */
-    PostGraduatesByCategory,
-
     DirectorByCathedra,
-    PostGraduatesByCathedra,
-    PostGraduatesByDirector,
-    PublicationByPostGraduate,
+    DirectorEdit,
+    DirectorDetails,
+    PublicationEdit,
     PublicationByDirector,
-
-    /** Формирование списка аспирантов по кафедрам/научным руководителям */
-    PostGraduateInfo,
-
-    /** Учет научных публикаций аспирантов/научного руководителя аспиранта */
-    PublicationInfo,
-
-    /** Учет работы научных советов */
-    CouncilInfo,
-
-    /** Составление отчетов о состоявшихся защитах (по различным категориям, научным направлениям, кафедрам, научным руководителям и т.п.) */
-    ProtectionInfo;
+    PublicationByPostGraduate;
 
     var payload: Any? = null
         get() {
