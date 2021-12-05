@@ -13,6 +13,7 @@ import data.repository.publication.UseCasePublication
 import data.repository.publication.UseCasePublicationImpl
 import org.koin.dsl.module
 import screen.category.CategoryViewModel
+import screen.category.edit.CategoryEditViewModel
 import screen.post_graduates.PostGraduatesViewModel
 
 val MainModule = module {
@@ -24,4 +25,5 @@ val MainModule = module {
 
     factory { CategoryViewModel(get()) }
     factory { PostGraduatesViewModel(get()) }
+    factory { CategoryEditViewModel(get()) }
 }

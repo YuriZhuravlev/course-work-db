@@ -12,6 +12,8 @@ import base.DBColors
 import org.koin.core.context.GlobalContext.get
 import screen.NavState
 import screen.category.CategoryView
+import screen.category.edit.CategoryEditView
+import screen.category.edit.CategoryEditViewModel
 import screen.post_graduates.PostGraduatesView
 import ui.MenuView
 
@@ -32,6 +34,9 @@ fun MainView(viewModel: MainViewModel) {
                 }
                 NavState.PostGraduatesByCategory -> {
                     PostGraduatesView(get().get())
+                }
+                NavState.CategoryEdit -> {
+                    CategoryEditView(get().get<CategoryEditViewModel>().apply { setup(state.payload) })
                 }
                 NavState.Cathedra -> {}
                 NavState.Council -> {}

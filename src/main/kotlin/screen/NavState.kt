@@ -39,4 +39,9 @@ enum class NavState {
     ProtectionInfo;
 
     var payload: Any? = null
+        get() {
+            val payload = field
+            field = null
+            return payload
+        }
 }

@@ -7,8 +7,6 @@ import data.repository.post_graduate.UseCasePostGraduate
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import screen.NavState
-import screen.Navigation
 
 class CategoryViewModel(private val useCasePostGraduate: UseCasePostGraduate) : ViewModel() {
     private val _categories = MutableStateFlow<Resource<List<Category>>>(Resource.Empty())
@@ -25,12 +23,7 @@ class CategoryViewModel(private val useCasePostGraduate: UseCasePostGraduate) : 
     fun delete(category: Category) {
         viewModelScope.launch {
             useCasePostGraduate.deleteCategory(category)
-        }
-    }
-
-    fun navigation(state: NavState) {
-        viewModelScope.launch {
-            Navigation.emitState(state)
+            loadCategories()
         }
     }
 }

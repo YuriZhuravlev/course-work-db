@@ -35,12 +35,12 @@ fun CategoryView(viewModel: CategoryViewModel) {
         }
         categories is Resource.Success -> {
             Column(Modifier.fillMaxSize()) {
-                Box(Modifier.fillMaxWidth().height(80.dp)) {
+                Box(Modifier.fillMaxWidth().height(40.dp).padding(top = 20.dp, end = 20.dp)) {
                     Icon(imageVector = Icons.Default.Add, modifier = Modifier.clickable {
                         viewModel.navigation(NavState.CategoryEdit)
                     }.align(Alignment.TopEnd), contentDescription = "add")
                 }
-                LazyColumn {
+                LazyColumn(Modifier.padding(16.dp)) {
                     itemsIndexed(items = categories.value) { index, item ->
                         ColumnCategory(item, index % 2 != 0, onDelete = viewModel::delete) {
                             viewModel.navigation(it)
@@ -74,8 +74,8 @@ private fun ColumnCategory(
         modifier.background(DBColors().surface)
     }
     Row(modifier = modifier) {
-        Text(text = "id", modifier = Modifier.width(50.dp))
-        Text(text = "name", modifier = Modifier.width(400.dp))
+        Text(text = category.id.toString(), modifier = Modifier.width(50.dp))
+        Text(text = category.name, modifier = Modifier.width(400.dp))
         Icon(Icons.Default.Edit, "edit", Modifier.clickable {
             val state = NavState.CategoryEdit
             state.payload = category
