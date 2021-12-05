@@ -15,6 +15,7 @@ import screen.category.CategoryView
 import screen.category.edit.CategoryEditView
 import screen.category.edit.CategoryEditViewModel
 import screen.post_graduates.PostGraduatesView
+import screen.post_graduates.PostGraduatesViewModel
 import ui.MenuView
 
 @Composable
@@ -33,7 +34,7 @@ fun MainView(viewModel: MainViewModel) {
                     CategoryView(get().get())
                 }
                 NavState.PostGraduatesByCategory -> {
-                    PostGraduatesView(get().get())
+                    PostGraduatesView(get().get<PostGraduatesViewModel>().apply { setup(state.payload) })
                 }
                 NavState.CategoryEdit -> {
                     CategoryEditView(get().get<CategoryEditViewModel>().apply { setup(state.payload) })
