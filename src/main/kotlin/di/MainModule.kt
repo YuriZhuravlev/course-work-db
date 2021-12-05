@@ -12,6 +12,8 @@ import data.repository.post_graduate.UseCasePostGraduateImpl
 import data.repository.publication.UseCasePublication
 import data.repository.publication.UseCasePublicationImpl
 import org.koin.dsl.module
+import screen.category.CategoryViewModel
+import screen.post_graduates.PostGraduatesViewModel
 
 val MainModule = module {
     single<UseCasePublication> { UseCasePublicationImpl(DAOPostgresql) }
@@ -19,4 +21,7 @@ val MainModule = module {
     single<UseCaseCathedra> { UseCaseCathedraImpl(DAOPostgresql) }
     single<UseCaseCouncil> { UseCaseCouncilImpl(DAOPostgresql) }
     single<UseCasePostGraduate> { UseCasePostGraduateImpl(DAOPostgresql) }
+
+    factory { CategoryViewModel(get()) }
+    factory { PostGraduatesViewModel(get()) }
 }

@@ -36,5 +36,7 @@ enum class NavState {
     CouncilInfo,
 
     /** Составление отчетов о состоявшихся защитах (по различным категориям, научным направлениям, кафедрам, научным руководителям и т.п.) */
-    ProtectionInfo
+    ProtectionInfo;
+
+    var payload: Any? = null
 }

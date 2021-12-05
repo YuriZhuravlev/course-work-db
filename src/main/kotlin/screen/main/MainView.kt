@@ -9,7 +9,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import base.DBColors
+import org.koin.core.context.GlobalContext.get
 import screen.NavState
+import screen.category.CategoryView
+import screen.post_graduates.PostGraduatesView
 import ui.MenuView
 
 @Composable
@@ -23,9 +26,16 @@ fun MainView(viewModel: MainViewModel) {
         Box(Modifier.fillMaxHeight().width(2.dp).background(DBColors().primary).padding(horizontal = 8.dp))
         Box(Modifier.fillMaxSize()) {
             when (state) {
-                NavState.Main -> {
-                    Text("MainState")
+                NavState.Main -> {}
+                NavState.Category -> {
+                    CategoryView(get().get())
                 }
+                NavState.PostGraduatesByCategory -> {
+                    PostGraduatesView(get().get())
+                }
+                NavState.Cathedra -> {}
+                NavState.Council -> {}
+                NavState.Protection -> {}
                 else -> {
                     Text(state.name)
                 }
