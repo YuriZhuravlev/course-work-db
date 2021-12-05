@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import data.Resource
 import data.model.Cathedra
 import screen.NavState
+import ui.BigText
 
 @Composable
 fun CathedraView(viewModel: CathedraViewModel) {
@@ -31,7 +32,8 @@ fun CathedraView(viewModel: CathedraViewModel) {
         }
         cathedra is Resource.Success -> {
             Column(Modifier.fillMaxSize()) {
-                Box(Modifier.fillMaxWidth().height(40.dp).padding(top = 20.dp, end = 20.dp)) {
+                Box(Modifier.fillMaxWidth().padding(top = 8.dp, start = 20.dp, end = 20.dp)) {
+                    BigText(text = "Кафедры")
                     Icon(imageVector = Icons.Default.Add, modifier = Modifier.clickable {
                         viewModel.navigation(NavState.CathedraEdit)
                     }.align(Alignment.TopEnd), contentDescription = "add")

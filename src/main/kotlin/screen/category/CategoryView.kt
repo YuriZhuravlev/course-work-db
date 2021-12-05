@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import data.Resource
 import data.model.Category
 import screen.NavState
+import ui.BigText
 
 @Composable
 fun CategoryView(viewModel: CategoryViewModel) {
@@ -34,7 +35,8 @@ fun CategoryView(viewModel: CategoryViewModel) {
         }
         categories is Resource.Success -> {
             Column(Modifier.fillMaxSize()) {
-                Box(Modifier.fillMaxWidth().height(40.dp).padding(top = 20.dp, end = 20.dp)) {
+                Box(Modifier.fillMaxWidth().padding(top = 8.dp, start = 20.dp, end = 20.dp)) {
+                    BigText(text = "Категории аспирантов")
                     Icon(imageVector = Icons.Default.Add, modifier = Modifier.clickable {
                         viewModel.navigation(NavState.CategoryEdit)
                     }.align(Alignment.TopEnd), contentDescription = "add")
