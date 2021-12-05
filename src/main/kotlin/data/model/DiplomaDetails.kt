@@ -3,9 +3,8 @@ package data.model
 /**
  * Диплом
  */
-data class Diploma(
+data class DiplomaDetails(
     val id: Long,
     val name: String,
-    val postGraduateId: Long,
-    val protectionId: Long,
+    val postGraduate: PostGraduate
 )

@@ -3,9 +3,9 @@ package data.model
 /**
  * Научный руководитель
  */
-data class ScientificDirector(
+data class ScientificDirectorDetails(
     val id: Long,
     val name: String,
     val surname: String,
-    val cathedraId: Long
+    val cathedra: Cathedra?
 )

@@ -1,7 +1,7 @@
 package data.model
 
 /**
- * Кафедра
+ * Категория
  */
 data class Category(
     val id: Long,
