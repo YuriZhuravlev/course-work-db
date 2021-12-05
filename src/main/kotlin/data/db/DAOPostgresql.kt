@@ -57,6 +57,12 @@ object DAOPostgresql : DAO {
         }
     }
 
+    override fun getDirections(): List<ScientificDirection> {
+        return transaction {
+            DBScientificDirection.all().map { ScientificDirection(it.id.value, it.name) }
+        }
+    }
+
     override fun getPublicationsByDirector(id: Long): List<ScientificPublication> {
         return transaction {
             val list = mutableListOf<ScientificPublication>()

@@ -16,6 +16,8 @@ import screen.category.CategoryViewModel
 import screen.category.edit.CategoryEditViewModel
 import screen.cathedra.CathedraViewModel
 import screen.cathedra.edit.CathedraEditViewModel
+import screen.direction.DirectionViewModel
+import screen.direction.edit.DirectionEditViewModel
 import screen.director.DirectorViewModel
 import screen.director.edit.DirectorEditViewModel
 import screen.post_graduates.PostGraduatesViewModel
@@ -34,4 +36,6 @@ val MainModule = module {
     factory { CathedraEditViewModel(get()) }
     factory { DirectorViewModel(get()) }
     factory { DirectorEditViewModel(get(), get()) }
+    factory { DirectionViewModel(get()) }
+    factory { DirectionEditViewModel(get()) }
 }

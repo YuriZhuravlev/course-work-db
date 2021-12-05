@@ -21,6 +21,7 @@ fun MenuView(modifier: Modifier, onClick: (NavState) -> Unit) {
         TextMenu(Modifier.clickable { onClick(NavState.Cathedra) }, "Кафедры")
         TextMenu(Modifier.clickable { onClick(NavState.Council) }, "Научные советы")
         TextMenu(Modifier.clickable { onClick(NavState.ProtectionByCouncil) }, "Отчеты по защитам")
+        TextMenu(Modifier.clickable { onClick(NavState.Direction) }, "Научные направления")
     }
 }
 

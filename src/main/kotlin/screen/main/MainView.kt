@@ -16,6 +16,9 @@ import screen.category.edit.CategoryEditView
 import screen.category.edit.CategoryEditViewModel
 import screen.cathedra.CathedraView
 import screen.cathedra.edit.CathedraEditView
+import screen.direction.DirectionView
+import screen.direction.edit.DirectionEditView
+import screen.direction.edit.DirectionEditViewModel
 import screen.director.DirectorView
 import screen.director.DirectorViewModel
 import screen.director.edit.DirectorEditView
@@ -62,6 +65,12 @@ fun MainView(viewModel: MainViewModel) {
                 }
                 NavState.PostGraduatesByCathedra -> {
                     PostGraduatesView(get().get<PostGraduatesViewModel>().apply { setup(state.payload) })
+                }
+                NavState.Direction -> {
+                    DirectionView(get().get())
+                }
+                NavState.DirectionEdit -> {
+                    DirectionEditView(get().get<DirectionEditViewModel>().apply { setup(state.payload) })
                 }
 //                NavState.Council -> {}
 //                NavState.ProtectionByCouncil -> {}

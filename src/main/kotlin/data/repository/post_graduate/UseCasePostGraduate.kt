@@ -3,7 +3,6 @@ package data.repository.post_graduate
 import data.model.*
 
 interface UseCasePostGraduate {
-    suspend fun getCategories(): List<Category>
 
     suspend fun getPostGraduatesByCategory(id: Long): List<PostGraduate>
     suspend fun getPostGraduatesByCathedra(id: Long): List<PostGraduate>
@@ -17,10 +16,12 @@ interface UseCasePostGraduate {
     suspend fun updatePostGraduate(postGraduate: PostGraduate)
     suspend fun deletePostGraduate(postGraduate: PostGraduate)
 
+    suspend fun getCategories(): List<Category>
     suspend fun insertCategory(category: Category): Long
     suspend fun updateCategory(category: Category)
     suspend fun deleteCategory(category: Category)
 
+    suspend fun getDirections(): List<ScientificDirection>
     suspend fun insertDirection(direction: ScientificDirection): Long
     suspend fun updateDirection(direction: ScientificDirection)
     suspend fun deleteDirection(direction: ScientificDirection)
