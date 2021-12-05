@@ -4,8 +4,7 @@ import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
-import org.jetbrains.exposed.sql.`java-time`.date
-import java.util.*
+import org.jetbrains.exposed.sql.javatime.date
 
 /**
  * Награда
