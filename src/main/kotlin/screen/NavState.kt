@@ -7,14 +7,14 @@ enum class NavState {
     Cathedra,//+
     CathedraEdit,//+
     DiplomaEdit,
-    PostGraduateDetails,
-    PostGraduateEdit,
+    PostGraduateDetails,//+
+    PostGraduateEdit,//+
     PostGraduatesByCategory,//+
     PostGraduatesByCathedra,//+
     PostGraduatesByDirector,//+
     ProtectionByCouncil,
     ProtectionEdit,
-    RewardEdit,
+    RewardEdit,//+
     Council,
     CouncilEdit,
     Direction,

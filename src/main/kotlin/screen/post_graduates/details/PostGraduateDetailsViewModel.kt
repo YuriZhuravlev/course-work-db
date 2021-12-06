@@ -25,20 +25,16 @@ class PostGraduateDetailsViewModel(
     private val _diplomas = MutableStateFlow<List<Diploma>>(listOf())
     val diplomas = _diplomas.asStateFlow()
 
-    fun load() {
+    private fun load(id: Long) {
         viewModelScope.launch {
-            val value = postGraduate.value
-            if (value is Resource.Success) {
-                val id = value.value.id
-                launch {
-                    _publications.emit(useCasePublication.getPublicationsByPostGraduate(id))
-                }
-                launch {
-                    _diplomas.emit(useCasePostGraduate.getDiplomasByPostGraduate(id))
-                }
-                launch {
-                    _rewards.emit(useCasePostGraduate.getRewardsByPostGraduate(id))
-                }
+            launch {
+                _publications.emit(useCasePublication.getPublicationsByPostGraduate(id))
+            }
+            launch {
+                _diplomas.emit(useCasePostGraduate.getDiplomasByPostGraduate(id))
+            }
+            launch {
+                _rewards.emit(useCasePostGraduate.getRewardsByPostGraduate(id))
             }
         }
     }
@@ -49,9 +45,19 @@ class PostGraduateDetailsViewModel(
                 _postGraduate.emit(Resource.loading())
                 useCasePostGraduate.getPostGraduateDetails(payload.id)?.let {
                     _postGraduate.emit(Resource.success(it))
+                    load(payload.id)
                 } ?: _postGraduate.emit(Resource.failed(Throwable("Not found by id")))
             } else
                 _postGraduate.emit(Resource.failed(Throwable("Failed")))
+        }
+    }
+
+    fun deleteReward(reward: Reward) {
+        viewModelScope.launch {
+            useCasePostGraduate.deleteReward(reward)
+            val value = _postGraduate.value
+            if (value is Resource.Success)
+                _rewards.emit(useCasePostGraduate.getRewardsByPostGraduate(value.value.id))
         }
     }
 }

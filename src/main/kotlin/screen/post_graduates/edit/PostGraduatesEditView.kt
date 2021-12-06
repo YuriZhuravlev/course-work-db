@@ -46,8 +46,8 @@ fun PostGraduatesEditView(viewModel: PostGraduatesEditViewModel) {
 
 
         if (resultState.isSuccess()) {
-            val state = NavState.Main
-//            state.payload = postGraduate
+            val state = NavState.PostGraduatesByDirector
+            state.payload = director
             viewModel.navigation(state)
         }
         Column(Modifier.align(Alignment.Center)) {

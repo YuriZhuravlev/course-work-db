@@ -8,19 +8,20 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import config.EMPTY_ID
 import data.Resource
 import data.model.PostGraduateDetails
+import data.model.Reward
 import screen.NavState
 import ui.BigText
 import ui.NormalText
 import ui.UnderlineText
+import java.time.LocalDate
 
 @Composable
 fun PostGraduateDetailsView(viewModel: PostGraduateDetailsViewModel) {
@@ -92,13 +93,25 @@ private fun CardView(
         val rewards by viewModel.rewards.collectAsState()
         ExpandableListView("Награды", rewards,
             addView = {
-                AddView { viewModel.navigation(NavState.RewardEdit) }
+                AddView {
+                    val state = NavState.RewardEdit
+                    state.payload = Reward(EMPTY_ID, "", LocalDate.now(), postGraduate.id)
+                    viewModel.navigation(state)
+                }
             }
         ) {
             Row {
                 Text(modifier = Modifier.width(50.dp), text = it.id.toString())
                 Text(modifier = Modifier.width(200.dp), text = it.name)
                 Text(modifier = Modifier.width(100.dp), text = it.date.toString())
+                Icon(Icons.Default.Edit, "edit", Modifier.clickable {
+                    val state = NavState.RewardEdit
+                    state.payload = it
+                    viewModel.navigation(state)
+                })
+                Icon(Icons.Default.Delete, "delete", Modifier.clickable {
+                    viewModel.deleteReward(it)
+                })
             }
         }
     }
