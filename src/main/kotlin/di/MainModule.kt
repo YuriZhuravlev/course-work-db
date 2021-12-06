@@ -21,6 +21,7 @@ import screen.direction.edit.DirectionEditViewModel
 import screen.director.DirectorViewModel
 import screen.director.edit.DirectorEditViewModel
 import screen.post_graduates.PostGraduatesViewModel
+import screen.post_graduates.details.PostGraduateDetailsViewModel
 import screen.post_graduates.edit.PostGraduatesEditViewModel
 
 val MainModule = module {
@@ -40,4 +41,5 @@ val MainModule = module {
     factory { DirectionViewModel(get()) }
     factory { DirectionEditViewModel(get()) }
     factory { PostGraduatesEditViewModel(get(), get()) }
+    factory { PostGraduateDetailsViewModel(get(), get()) }
 }

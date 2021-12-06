@@ -24,6 +24,7 @@ fun main() = application {
     }
 
     Window(onCloseRequest = ::exitApplication, title = "Отдел аспирантуры ВУЗа") {
+        window.setSize(1024, 768)
         App()
     }
 }

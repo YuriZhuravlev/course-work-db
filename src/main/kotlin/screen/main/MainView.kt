@@ -25,6 +25,8 @@ import screen.director.edit.DirectorEditView
 import screen.director.edit.DirectorEditViewModel
 import screen.post_graduates.PostGraduatesView
 import screen.post_graduates.PostGraduatesViewModel
+import screen.post_graduates.details.PostGraduateDetailsView
+import screen.post_graduates.details.PostGraduateDetailsViewModel
 import screen.post_graduates.edit.PostGraduatesEditView
 import screen.post_graduates.edit.PostGraduatesEditViewModel
 import ui.MenuView
@@ -76,6 +78,9 @@ fun MainView(viewModel: MainViewModel) {
                 }
                 NavState.PostGraduateEdit -> {
                     PostGraduatesEditView(get().get<PostGraduatesEditViewModel>().apply { setup(state.payload) })
+                }
+                NavState.PostGraduateDetails -> {
+                    PostGraduateDetailsView(get().get<PostGraduateDetailsViewModel>().apply { setup(state.payload) })
                 }
 //                NavState.Council -> {}
 //                NavState.ProtectionByCouncil -> {}
