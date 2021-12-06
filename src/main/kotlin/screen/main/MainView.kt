@@ -29,6 +29,8 @@ import screen.post_graduates.details.PostGraduateDetailsView
 import screen.post_graduates.details.PostGraduateDetailsViewModel
 import screen.post_graduates.edit.PostGraduatesEditView
 import screen.post_graduates.edit.PostGraduatesEditViewModel
+import screen.publication.PublicationView
+import screen.publication.PublicationViewModel
 import screen.publication.edit.PublicationEditView
 import screen.publication.edit.PublicationEditViewModel
 import screen.reward.edit.RewardEditView
@@ -91,6 +93,9 @@ fun MainView(viewModel: MainViewModel) {
                 }
                 NavState.PublicationEdit -> {
                     PublicationEditView(get().get<PublicationEditViewModel>().apply { setup(state.payload) })
+                }
+                NavState.PublicationByDirector -> {
+                    PublicationView(get().get<PublicationViewModel>().apply { setup(state.payload) })
                 }
 //                NavState.Council -> {}
 //                NavState.ProtectionByCouncil -> {}

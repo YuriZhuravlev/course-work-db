@@ -4,9 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -44,6 +42,7 @@ fun DirectorView(viewModel: DirectorViewModel) {
                         ColumnDirector(item, onDelete = viewModel::delete) {
                             viewModel.navigation(it)
                         }
+                        Divider(modifier = Modifier.padding(vertical = 2.dp, horizontal = 16.dp))
                     }
                 }
             }
@@ -66,22 +65,31 @@ private fun ColumnDirector(
     onClick: (NavState) -> Unit
 ) {
     val modifier = Modifier.fillMaxWidth()
-        .clickable {
+    Row(modifier = modifier) {
+        Text(text = director.id.toString(), modifier = Modifier.width(50.dp).align(Alignment.CenterVertically))
+        Text(text = director.name, modifier = Modifier.width(125.dp).align(Alignment.CenterVertically))
+        Text(text = director.surname, modifier = Modifier.width(125.dp).align(Alignment.CenterVertically))
+        Button(onClick = {
+            val state = NavState.PublicationByDirector
+            state.payload = director
+            onClick(state)
+        }, modifier = Modifier.weight(3f).padding(end = 4.dp)) {
+            Text("Научные публикации")
+        }
+        Button(onClick = {
             val state = NavState.PostGraduatesByDirector
             state.payload = director
             onClick(state)
+        }, modifier = Modifier.weight(2f)) {
+            Text("Аспиранты")
         }
-    Row(modifier = modifier) {
-        Text(text = director.id.toString(), modifier = Modifier.width(50.dp))
-        Text(text = director.name, modifier = Modifier.width(200.dp))
-        Text(text = director.surname, modifier = Modifier.width(200.dp))
         Icon(Icons.Default.Edit, "edit", Modifier.clickable {
             val state = NavState.DirectorEdit
             state.payload = director
             onClick(state)
-        })
+        }.align(Alignment.CenterVertically))
         Icon(Icons.Default.Delete, "delete", Modifier.clickable {
             onDelete(director)
-        })
+        }.align(Alignment.CenterVertically))
     }
 }
