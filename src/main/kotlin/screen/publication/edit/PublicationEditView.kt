@@ -1,4 +1,4 @@
-package screen.reward.edit
+package screen.publication.edit
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,26 +24,26 @@ private const val DATE = "Дата получения"
 private const val POST_GRADUATE = "id аспиранта"
 
 @Composable
-fun RewardEditView(viewModel: RewardEditViewModel) {
+fun PublicationEditView(viewModel: PublicationEditViewModel) {
     Box(Modifier.fillMaxSize()) {
-        val rewardState by viewModel.reward.collectAsState()
+        val publicationState by viewModel.publication.collectAsState()
         val resultState by viewModel.result.collectAsState()
 
         if (resultState.isSuccess()) {
             viewModel.navigation(NavState.Cathedra)
         }
 
-        val reward = rewardState
-        var name by remember { mutableStateOf(rewardState?.name ?: "") }
-        var date by remember { mutableStateOf(rewardState?.date) }
+        val publication = publicationState
+        var name by remember { mutableStateOf(publicationState?.name ?: "") }
+        var date by remember { mutableStateOf(publicationState?.date) }
         var dateString by remember { mutableStateOf(date?.format(DateTimeFormatter.ISO_LOCAL_DATE) ?: "") }
         if (date == null) {
-            date = reward?.date
+            date = publication?.date
         }
         Column(Modifier.align(Alignment.Center)) {
-            BigText(modifier = Modifier.align(Alignment.CenterHorizontally), text = "Награда")
-            if (reward != null && reward.id != EMPTY_ID) {
-                TextField(value = reward.id.toString(), onValueChange = {}, readOnly = true, label = { Text(ID) })
+            BigText(modifier = Modifier.align(Alignment.CenterHorizontally), text = "Научная публикация")
+            if (publication != null && publication.id != EMPTY_ID) {
+                TextField(value = publication.id.toString(), onValueChange = {}, readOnly = true, label = { Text(ID) })
             }
             TextField(value = name, onValueChange = { name = it }, label = { Text(NAME) })
             TextField(
@@ -55,7 +55,7 @@ fun RewardEditView(viewModel: RewardEditViewModel) {
                 label = { Text(DATE) }
             )
             TextField(
-                value = reward?.postGraduateId.toString(),
+                value = publication?.postGraduateId.toString(),
                 onValueChange = {},
                 readOnly = true,
                 label = { Text(POST_GRADUATE) })
@@ -70,3 +70,4 @@ fun RewardEditView(viewModel: RewardEditViewModel) {
         }
     }
 }
+

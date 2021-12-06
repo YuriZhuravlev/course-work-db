@@ -60,4 +60,13 @@ class PostGraduateDetailsViewModel(
                 _rewards.emit(useCasePostGraduate.getRewardsByPostGraduate(value.value.id))
         }
     }
+
+    fun deletePublication(publication: ScientificPublication) {
+        viewModelScope.launch {
+            useCasePublication.deletePublication(publication)
+            val value = _postGraduate.value
+            if (value is Resource.Success)
+                _publications.emit(useCasePublication.getPublicationsByPostGraduate(value.value.id))
+        }
+    }
 }

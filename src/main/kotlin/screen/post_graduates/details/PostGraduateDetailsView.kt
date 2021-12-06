@@ -17,6 +17,7 @@ import config.EMPTY_ID
 import data.Resource
 import data.model.PostGraduateDetails
 import data.model.Reward
+import data.model.ScientificPublication
 import screen.NavState
 import ui.BigText
 import ui.NormalText
@@ -72,13 +73,25 @@ private fun CardView(
             "Публикации",
             publications,
             addView = {
-                AddView { viewModel.navigation(NavState.PublicationEdit) }
+                AddView {
+                    val state = NavState.PublicationEdit
+                    state.payload = ScientificPublication(EMPTY_ID, "", LocalDate.now(), postGraduate.id)
+                    viewModel.navigation(state)
+                }
             }
         ) {
             Row {
                 Text(modifier = Modifier.width(50.dp), text = it.id.toString())
                 Text(modifier = Modifier.width(200.dp), text = it.name)
                 Text(modifier = Modifier.width(100.dp), text = it.date.toString())
+                Icon(Icons.Default.Edit, "edit", Modifier.clickable {
+                    val state = NavState.PublicationEdit
+                    state.payload = it
+                    viewModel.navigation(state)
+                })
+                Icon(Icons.Default.Delete, "delete", Modifier.clickable {
+                    viewModel.deletePublication(it)
+                })
             }
         }
 
