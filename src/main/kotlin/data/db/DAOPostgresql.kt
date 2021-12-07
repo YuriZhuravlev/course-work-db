@@ -479,4 +479,32 @@ object DAOPostgresql : DAO {
             }
         }
     }
+
+    override fun getProtectionsByCouncil(council: ScientificCouncil): List<ProtectionDetails> {
+        return transaction {
+            val list = mutableListOf<ProtectionDetails>()
+            DBProtection.find { ProtectionTable.councilId eq council.id }.forEach {
+                var find = false
+                DBDiploma.find { DiplomaTable.protectionId eq it.id.value }.forEach { diploma ->
+                    find = true
+                    list.add(
+                        ProtectionDetails(
+                            it.id.value,
+                            it.councilId,
+                            it.date,
+                            Diploma(
+                                diploma.id.value,
+                                diploma.name,
+                                diploma.postGraduateId,
+                                diploma.protectionId
+                            )
+                        )
+                    )
+                }
+                if (find)
+                    ProtectionDetails(it.id.value, it.councilId, it.date, null)
+            }
+            list
+        }
+    }
 }

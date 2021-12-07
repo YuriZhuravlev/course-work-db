@@ -2,10 +2,12 @@ package data.repository.council
 
 import data.model.Diploma
 import data.model.Protection
+import data.model.ProtectionDetails
 import data.model.ScientificCouncil
 
 interface UseCaseCouncil {
     suspend fun getCouncils(): List<ScientificCouncil>
+    suspend fun getProtectionsByCouncil(council: ScientificCouncil): List<ProtectionDetails>
 
     suspend fun insertDiploma(diploma: Diploma): Long
     suspend fun updateDiploma(diploma: Diploma)

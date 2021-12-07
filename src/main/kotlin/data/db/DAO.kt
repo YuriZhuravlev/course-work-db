@@ -61,4 +61,5 @@ interface DAO {
     fun insertPublication(publication: ScientificPublication): Long
     fun updatePublication(publication: ScientificPublication)
     fun deletePublication(publication: ScientificPublication)
+    fun getProtectionsByCouncil(council: ScientificCouncil): List<ProtectionDetails>
 }

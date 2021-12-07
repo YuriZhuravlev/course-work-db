@@ -25,6 +25,7 @@ import screen.director.edit.DirectorEditViewModel
 import screen.post_graduates.PostGraduatesViewModel
 import screen.post_graduates.details.PostGraduateDetailsViewModel
 import screen.post_graduates.edit.PostGraduatesEditViewModel
+import screen.protection.ProtectionViewModel
 import screen.publication.PublicationViewModel
 import screen.publication.edit.PublicationEditViewModel
 import screen.reward.edit.RewardEditViewModel
@@ -52,4 +53,5 @@ val MainModule = module {
     factory { PublicationViewModel(get()) }
     factory { CouncilViewModel(get()) }
     factory { CouncilEditViewModel(get()) }
+    factory { ProtectionViewModel(get()) }
 }
