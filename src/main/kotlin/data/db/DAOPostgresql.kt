@@ -501,8 +501,8 @@ object DAOPostgresql : DAO {
                         )
                     )
                 }
-                if (find)
-                    ProtectionDetails(it.id.value, it.councilId, it.date, null)
+                if (!find)
+                    list.add(ProtectionDetails(it.id.value, it.councilId, it.date, null))
             }
             list
         }

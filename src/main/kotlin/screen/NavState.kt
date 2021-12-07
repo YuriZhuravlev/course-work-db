@@ -12,18 +12,17 @@ enum class NavState {
     PostGraduatesByCategory,//+
     PostGraduatesByCathedra,//+
     PostGraduatesByDirector,//+
-    ProtectionByCouncil,
-    ProtectionEdit,
+    ProtectionByCouncil,//+
+    ProtectionEdit,//+
     RewardEdit,//+
-    Council,
-    CouncilEdit,
-    Direction,
-    DirectionEdit,
+    Council,//+
+    CouncilEdit,//+
+    Direction,//+
+    DirectionEdit,//+
     DirectorByCathedra,//+
     DirectorEdit,//+
-    PublicationEdit,
-    PublicationByDirector,
-    PublicationByPostGraduate;
+    PublicationEdit,//+
+    PublicationByDirector;//+
 
     var payload: Any? = null
         get() {

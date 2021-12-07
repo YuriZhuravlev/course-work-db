@@ -43,7 +43,7 @@ class ProtectionViewModel(private val useCaseCouncil: UseCaseCouncil) : ViewMode
     fun delete(protection: ProtectionDetails) {
         viewModelScope.launch {
             useCaseCouncil.deleteProtection(Protection(protection.id, protection.councilId, protection.date))
-            _protections.emit(Resource.loading())
+            load()
         }
     }
 }

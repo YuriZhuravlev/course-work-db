@@ -35,6 +35,8 @@ import screen.post_graduates.edit.PostGraduatesEditView
 import screen.post_graduates.edit.PostGraduatesEditViewModel
 import screen.protection.ProtectionView
 import screen.protection.ProtectionViewModel
+import screen.protection.edit.ProtectionEditView
+import screen.protection.edit.ProtectionEditViewModel
 import screen.publication.PublicationView
 import screen.publication.PublicationViewModel
 import screen.publication.edit.PublicationEditView
@@ -111,6 +113,9 @@ fun MainView(viewModel: MainViewModel) {
                 }
                 NavState.ProtectionByCouncil -> {
                     ProtectionView(get().get<ProtectionViewModel>().apply { setup(state.payload) })
+                }
+                NavState.ProtectionEdit -> {
+                    ProtectionEditView(get().get<ProtectionEditViewModel>().apply { setup(state.payload) })
                 }
                 else -> {
                     Text(state.name)
