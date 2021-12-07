@@ -68,13 +68,13 @@ private fun ColumnDirection(
     val modifier = Modifier.fillMaxWidth()
     Row(modifier = modifier) {
         Text(text = direction.id.toString(), modifier = Modifier.width(50.dp))
-        Text(text = direction.name, modifier = Modifier.width(400.dp))
-        Icon(Icons.Default.Edit, "edit", Modifier.clickable {
+        Text(text = direction.name, modifier = Modifier.weight(1f))
+        Icon(Icons.Default.Edit, "edit", Modifier.padding(start = 8.dp).clickable {
             val state = NavState.DirectionEdit
             state.payload = direction
             onClick(state)
         })
-        Icon(Icons.Default.Delete, "delete", Modifier.clickable {
+        Icon(Icons.Default.Delete, "delete", Modifier.padding(end = 16.dp).clickable {
             onDelete(direction)
         })
     }

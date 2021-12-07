@@ -16,6 +16,10 @@ import screen.category.edit.CategoryEditView
 import screen.category.edit.CategoryEditViewModel
 import screen.cathedra.CathedraView
 import screen.cathedra.edit.CathedraEditView
+import screen.cathedra.edit.CathedraEditViewModel
+import screen.council.CouncilView
+import screen.council.edit.CouncilEditView
+import screen.council.edit.CouncilEditViewModel
 import screen.direction.DirectionView
 import screen.direction.edit.DirectionEditView
 import screen.direction.edit.DirectionEditViewModel
@@ -62,7 +66,7 @@ fun MainView(viewModel: MainViewModel) {
                     CathedraView(get().get())
                 }
                 NavState.CathedraEdit -> {
-                    CathedraEditView(get().get())
+                    CathedraEditView(get().get<CathedraEditViewModel>().apply { setup(state.payload) })
                 }
                 NavState.DirectorByCathedra -> {
                     DirectorView(get().get<DirectorViewModel>().apply { setup(state.payload) })
@@ -97,7 +101,12 @@ fun MainView(viewModel: MainViewModel) {
                 NavState.PublicationByDirector -> {
                     PublicationView(get().get<PublicationViewModel>().apply { setup(state.payload) })
                 }
-//                NavState.Council -> {}
+                NavState.Council -> {
+                    CouncilView(get().get())
+                }
+                NavState.CouncilEdit -> {
+                    CouncilEditView(get().get<CouncilEditViewModel>().apply { setup(state.payload) })
+                }
 //                NavState.ProtectionByCouncil -> {}
                 else -> {
                     Text(state.name)

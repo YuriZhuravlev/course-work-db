@@ -83,12 +83,12 @@ private fun ColumnDirector(
         }, modifier = Modifier.weight(2f)) {
             Text("Аспиранты")
         }
-        Icon(Icons.Default.Edit, "edit", Modifier.clickable {
+        Icon(Icons.Default.Edit, "edit", Modifier.padding(start = 8.dp).clickable {
             val state = NavState.DirectorEdit
             state.payload = director
             onClick(state)
         }.align(Alignment.CenterVertically))
-        Icon(Icons.Default.Delete, "delete", Modifier.clickable {
+        Icon(Icons.Default.Delete, "delete", Modifier.padding(end = 16.dp).clickable {
             onDelete(director)
         }.align(Alignment.CenterVertically))
     }

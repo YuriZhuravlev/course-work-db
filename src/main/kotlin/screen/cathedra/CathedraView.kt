@@ -65,7 +65,7 @@ fun ColumnCathedra(
     val modifier = Modifier.fillMaxWidth()
     Row(modifier = modifier) {
         Text(text = cathedra.id.toString(), modifier = Modifier.width(50.dp).align(Alignment.CenterVertically))
-        Text(text = cathedra.name, modifier = Modifier.width(300.dp).align(Alignment.CenterVertically))
+        Text(text = cathedra.name, modifier = Modifier.weight(3f).align(Alignment.CenterVertically))
         Button(onClick = {
             val state = NavState.DirectorByCathedra
             state.payload = cathedra
@@ -80,12 +80,12 @@ fun ColumnCathedra(
         }, modifier = Modifier.weight(2f)) {
             Text("Аспиранты")
         }
-        Icon(Icons.Default.Edit, "edit", Modifier.clickable {
-            val state = NavState.CategoryEdit
+        Icon(Icons.Default.Edit, "edit", Modifier.padding(start = 8.dp).clickable {
+            val state = NavState.CathedraEdit
             state.payload = cathedra
             onClick(state)
         }.align(Alignment.CenterVertically))
-        Icon(Icons.Default.Delete, "delete", Modifier.clickable {
+        Icon(Icons.Default.Delete, "delete", Modifier.padding(end = 16.dp).clickable {
             onDelete(cathedra)
         }.align(Alignment.CenterVertically))
     }

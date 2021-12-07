@@ -16,6 +16,8 @@ import screen.category.CategoryViewModel
 import screen.category.edit.CategoryEditViewModel
 import screen.cathedra.CathedraViewModel
 import screen.cathedra.edit.CathedraEditViewModel
+import screen.council.CouncilViewModel
+import screen.council.edit.CouncilEditViewModel
 import screen.direction.DirectionViewModel
 import screen.direction.edit.DirectionEditViewModel
 import screen.director.DirectorViewModel
@@ -48,4 +50,6 @@ val MainModule = module {
     factory { RewardEditViewModel(get()) }
     factory { PublicationEditViewModel(get()) }
     factory { PublicationViewModel(get()) }
+    factory { CouncilViewModel(get()) }
+    factory { CouncilEditViewModel(get()) }
 }

@@ -30,7 +30,7 @@ class CathedraEditViewModel(private val useCaseCathedra: UseCaseCathedra) : View
             if (cathedra == null)
                 useCaseCathedra.insertCathedra(Cathedra(EMPTY_ID, name))
             else
-                useCaseCathedra.insertCathedra(cathedra.copy(name = name))
+                useCaseCathedra.updateCathedra(cathedra.copy(name = name))
             _result.emit(Resource.success(null))
         }
     }
