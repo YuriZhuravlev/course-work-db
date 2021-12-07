@@ -18,6 +18,7 @@ import screen.cathedra.CathedraViewModel
 import screen.cathedra.edit.CathedraEditViewModel
 import screen.council.CouncilViewModel
 import screen.council.edit.CouncilEditViewModel
+import screen.diploma.edit.DiplomaEditViewModel
 import screen.direction.DirectionViewModel
 import screen.direction.edit.DirectionEditViewModel
 import screen.director.DirectorViewModel
@@ -56,4 +57,5 @@ val MainModule = module {
     factory { CouncilEditViewModel(get()) }
     factory { ProtectionViewModel(get()) }
     factory { ProtectionEditViewModel(get()) }
+    factory { DiplomaEditViewModel(get(), get(), get()) }
 }

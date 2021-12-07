@@ -117,6 +117,9 @@ fun MainView(viewModel: MainViewModel) {
                 NavState.ProtectionEdit -> {
                     ProtectionEditView(get().get<ProtectionEditViewModel>().apply { setup(state.payload) })
                 }
+                NavState.DiplomaEdit -> {
+                    DirectionEditView(get().get<DirectionEditViewModel>().apply { setup(state.payload) })
+                }
                 else -> {
                     Text(state.name)
                 }
