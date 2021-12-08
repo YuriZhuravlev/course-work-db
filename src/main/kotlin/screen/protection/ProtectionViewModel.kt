@@ -29,7 +29,7 @@ class ProtectionViewModel(private val useCaseCouncil: UseCaseCouncil) : ViewMode
         viewModelScope.launch {
             _protections.emit(Resource.loading())
             val res = council?.let {
-                useCaseCouncil.getProtectionsByCouncil(it)
+                useCaseCouncil.getProtectionsByCouncil(it.id)
             }
             _protections.emit(
                 if (res != null)

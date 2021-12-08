@@ -47,7 +47,7 @@ class UseCaseCouncilImpl(private val dao: DAO) : UseCaseCouncil {
         dao.deleteCouncil(council)
     }
 
-    override suspend fun getProtectionsByCouncil(council: ScientificCouncil): List<ProtectionDetails> {
-        return dao.getProtectionsByCouncil(council)
+    override suspend fun getProtectionsByCouncil(councilId: Long): List<ProtectionDetails> {
+        return dao.getProtectionsByCouncil(councilId)
     }
 }

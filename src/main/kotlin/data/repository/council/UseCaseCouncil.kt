@@ -7,7 +7,7 @@ import data.model.ScientificCouncil
 
 interface UseCaseCouncil {
     suspend fun getCouncils(): List<ScientificCouncil>
-    suspend fun getProtectionsByCouncil(council: ScientificCouncil): List<ProtectionDetails>
+    suspend fun getProtectionsByCouncil(councilId: Long): List<ProtectionDetails>
 
     suspend fun insertDiploma(diploma: Diploma): Long
     suspend fun updateDiploma(diploma: Diploma)

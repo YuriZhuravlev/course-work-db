@@ -22,6 +22,8 @@ interface DAO {
     fun getPostGraduateDetails(id: Long): PostGraduateDetails?
     fun getDirectorDetails(id: Long): ScientificDirectorDetails?
 
+    fun getProtectionsByCouncil(councilId: Long): List<ProtectionDetails>
+
     fun insertCategory(category: Category): Long
     fun updateCategory(category: Category)
     fun deleteCategory(category: Category)
@@ -61,5 +63,4 @@ interface DAO {
     fun insertPublication(publication: ScientificPublication): Long
     fun updatePublication(publication: ScientificPublication)
     fun deletePublication(publication: ScientificPublication)
-    fun getProtectionsByCouncil(council: ScientificCouncil): List<ProtectionDetails>
 }
