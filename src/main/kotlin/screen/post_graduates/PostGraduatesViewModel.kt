@@ -61,6 +61,13 @@ class PostGraduatesViewModel(private val useCasePostGraduate: UseCasePostGraduat
         }
     }
 
+    fun delete(postGraduate: PostGraduate) {
+        viewModelScope.launch {
+            useCasePostGraduate.deletePostGraduate(postGraduate)
+            loadPostGraduates()
+        }
+    }
+
     fun getHeader(): String {
         return when {
             (category != null) -> {

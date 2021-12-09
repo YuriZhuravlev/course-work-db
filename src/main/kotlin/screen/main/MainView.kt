@@ -20,6 +20,8 @@ import screen.cathedra.edit.CathedraEditViewModel
 import screen.council.CouncilView
 import screen.council.edit.CouncilEditView
 import screen.council.edit.CouncilEditViewModel
+import screen.diploma.edit.DiplomaEditView
+import screen.diploma.edit.DiplomaEditViewModel
 import screen.direction.DirectionView
 import screen.direction.edit.DirectionEditView
 import screen.direction.edit.DirectionEditViewModel
@@ -118,7 +120,7 @@ fun MainView(viewModel: MainViewModel) {
                     ProtectionEditView(get().get<ProtectionEditViewModel>().apply { setup(state.payload) })
                 }
                 NavState.DiplomaEdit -> {
-                    DirectionEditView(get().get<DirectionEditViewModel>().apply { setup(state.payload) })
+                    DiplomaEditView(get().get<DiplomaEditViewModel>().apply { setup(state.payload) })
                 }
                 else -> {
                     Text(state.name)

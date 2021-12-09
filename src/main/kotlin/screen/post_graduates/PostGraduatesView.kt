@@ -6,7 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,7 +38,7 @@ fun PostGraduatesView(viewModel: PostGraduatesViewModel) {
                 }
                 LazyColumn(Modifier.padding(16.dp)) {
                     itemsIndexed(items = postGraduate.value) { index, item ->
-                        ColumnPostGraduate(item, index % 2 != 0) {
+                        ColumnPostGraduate(item, index % 2 != 0, viewModel::delete) {
                             viewModel.navigation(it)
                         }
                     }
@@ -54,6 +57,7 @@ fun PostGraduatesView(viewModel: PostGraduatesViewModel) {
 private fun ColumnPostGraduate(
     postGraduate: PostGraduate,
     colored: Boolean,
+    onDelete: (PostGraduate) -> Unit,
     onClick: (NavState) -> Unit
 ) {
     val modifier = Modifier.fillMaxWidth()
@@ -68,6 +72,9 @@ private fun ColumnPostGraduate(
     Row(modifier = modifier) {
         Text(text = postGraduate.id.toString(), modifier = Modifier.width(50.dp))
         Text(text = postGraduate.name, modifier = Modifier.width(200.dp))
-        Text(text = postGraduate.surname, modifier = Modifier.width(200.dp))
+        Text(text = postGraduate.surname, modifier = Modifier.weight(1f))
+        Icon(Icons.Default.Delete, "delete", Modifier.height(20.dp).padding(end = 16.dp).clickable {
+            onDelete(postGraduate)
+        })
     }
 }

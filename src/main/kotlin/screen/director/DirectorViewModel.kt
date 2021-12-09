@@ -42,7 +42,7 @@ class DirectorViewModel(private val useCaseDirector: UseCaseDirector) : ViewMode
     fun delete(director: ScientificDirector) {
         viewModelScope.launch {
             useCaseDirector.deleteDirector(director)
-            _directors.emit(Resource.loading())
+            loadDirector()
         }
     }
 }
