@@ -4,6 +4,7 @@ import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
+import org.jetbrains.exposed.sql.ReferenceOption
 
 /**
  * Аспирант
@@ -21,7 +22,9 @@ class DBPostGraduate(id: EntityID<Long>): LongEntity(id) {
 object PostGraduateTable: LongIdTable("post_graduate", "post_graduate_id") {
     val name = varchar("post_graduate_name", 50)
     val surname = varchar("post_graduate_surname", 50)
-    val scientificDirectorId = long("post_graduate_director_id")
-    val scientificDirectionId = long("post_graduate_direction_id")
-    val categoryId = long("post_graduate_category_id")
+    val scientificDirectorId =
+        long("post_graduate_director_id").references(DirectorTable.id, onDelete = ReferenceOption.CASCADE)
+    val scientificDirectionId =
+        long("post_graduate_direction_id").references(DirectionTable.id, onDelete = ReferenceOption.CASCADE)
+    val categoryId = long("post_graduate_category_id").references(CategoryTable.id, onDelete = ReferenceOption.CASCADE)
 }

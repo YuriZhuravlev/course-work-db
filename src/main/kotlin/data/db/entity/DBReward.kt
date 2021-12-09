@@ -4,6 +4,7 @@ import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
+import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.javatime.date
 
 /**
@@ -20,5 +21,6 @@ class DBReward(id: EntityID<Long>) :LongEntity(id) {
 object RewardTable: LongIdTable("reward", "reward_id") {
     val name = varchar("reward_name", 50)
     val date = date("reward_date")
-    val postGraduateId = long("reward_post_graduate_id")
+    val postGraduateId =
+        long("reward_post_graduate_id").references(PostGraduateTable.id, onDelete = ReferenceOption.CASCADE)
 }
