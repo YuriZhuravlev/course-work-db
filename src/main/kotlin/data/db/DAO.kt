@@ -1,5 +1,6 @@
 package data.db
 
+import data.db.entity.DBReport
 import data.model.*
 
 interface DAO {
@@ -63,4 +64,9 @@ interface DAO {
     fun insertPublication(publication: ScientificPublication): Long
     fun updatePublication(publication: ScientificPublication)
     fun deletePublication(publication: ScientificPublication)
+
+    fun getReportsByCategories(): List<DBReport>
+    fun getReportsByDirections(): List<DBReport>
+    fun getReportsByCathedras(): List<DBReport>
+    fun getReportsByDirectors(): List<DBReport>
 }

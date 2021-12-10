@@ -1,5 +1,6 @@
 package di
 
+import data.db.DAO
 import data.db.DAOPostgresql
 import data.repository.cathedra.UseCaseCathedra
 import data.repository.cathedra.UseCaseCathedraImpl
@@ -11,6 +12,8 @@ import data.repository.post_graduate.UseCasePostGraduate
 import data.repository.post_graduate.UseCasePostGraduateImpl
 import data.repository.publication.UseCasePublication
 import data.repository.publication.UseCasePublicationImpl
+import data.repository.reports.UseCaseReports
+import data.repository.reports.UseCaseReportsImpl
 import org.koin.dsl.module
 import screen.category.CategoryViewModel
 import screen.category.edit.CategoryEditViewModel
@@ -30,14 +33,17 @@ import screen.protection.ProtectionViewModel
 import screen.protection.edit.ProtectionEditViewModel
 import screen.publication.PublicationViewModel
 import screen.publication.edit.PublicationEditViewModel
+import screen.reports.ReportsViewModel
 import screen.reward.edit.RewardEditViewModel
 
 val MainModule = module {
-    single<UseCasePublication> { UseCasePublicationImpl(DAOPostgresql) }
-    single<UseCaseDirector> { UseCaseDirectorImpl(DAOPostgresql) }
-    single<UseCaseCathedra> { UseCaseCathedraImpl(DAOPostgresql) }
-    single<UseCaseCouncil> { UseCaseCouncilImpl(DAOPostgresql) }
-    single<UseCasePostGraduate> { UseCasePostGraduateImpl(DAOPostgresql) }
+    single<DAO> { DAOPostgresql }
+    single<UseCasePublication> { UseCasePublicationImpl(get()) }
+    single<UseCaseDirector> { UseCaseDirectorImpl(get()) }
+    single<UseCaseCathedra> { UseCaseCathedraImpl(get()) }
+    single<UseCaseCouncil> { UseCaseCouncilImpl(get()) }
+    single<UseCasePostGraduate> { UseCasePostGraduateImpl(get()) }
+    single<UseCaseReports> { UseCaseReportsImpl(get()) }
 
     factory { CategoryViewModel(get()) }
     factory { PostGraduatesViewModel(get()) }
@@ -58,4 +64,5 @@ val MainModule = module {
     factory { ProtectionViewModel(get()) }
     factory { ProtectionEditViewModel(get()) }
     factory { DiplomaEditViewModel(get(), get(), get()) }
+    factory { ReportsViewModel(get()) }
 }

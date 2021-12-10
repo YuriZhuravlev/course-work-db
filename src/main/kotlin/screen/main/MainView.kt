@@ -43,6 +43,7 @@ import screen.publication.PublicationView
 import screen.publication.PublicationViewModel
 import screen.publication.edit.PublicationEditView
 import screen.publication.edit.PublicationEditViewModel
+import screen.reports.ReportsView
 import screen.reward.edit.RewardEditView
 import screen.reward.edit.RewardEditViewModel
 import ui.MenuView
@@ -121,6 +122,9 @@ fun MainView(viewModel: MainViewModel) {
                 }
                 NavState.DiplomaEdit -> {
                     DiplomaEditView(get().get<DiplomaEditViewModel>().apply { setup(state.payload) })
+                }
+                NavState.Reports -> {
+                    ReportsView(get().get())
                 }
                 else -> {
                     Text(state.name)

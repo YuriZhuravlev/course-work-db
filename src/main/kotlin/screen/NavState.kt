@@ -6,7 +6,7 @@ enum class NavState {
     CategoryEdit,//+
     Cathedra,//+
     CathedraEdit,//+
-    DiplomaEdit,
+    DiplomaEdit,//+
     PostGraduateDetails,//+
     PostGraduateEdit,//+
     PostGraduatesByCategory,//+
@@ -22,7 +22,8 @@ enum class NavState {
     DirectorByCathedra,//+
     DirectorEdit,//+
     PublicationEdit,//+
-    PublicationByDirector;//+
+    PublicationByDirector,//+
+    Reports;
 
     var payload: Any? = null
         get() {

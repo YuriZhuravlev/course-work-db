@@ -7,6 +7,7 @@ import data.db.entity.*
 import data.model.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.sql.ResultSet
 
 object DAOPostgresql : DAO {
     private val db by lazy {
@@ -506,5 +507,53 @@ object DAOPostgresql : DAO {
             }
             list
         }
+    }
+
+    override fun getReportsByCategories(): List<DBReport> {
+        var reports: List<DBReport>? = null
+        transaction {
+            exec("SELECT * FROM ReportsByCategories();") {
+                reports = it.parseReport()
+            }
+        }
+        return reports.orEmpty()
+    }
+
+    override fun getReportsByDirections(): List<DBReport> {
+        var reports: List<DBReport>? = null
+        transaction {
+            exec("SELECT * FROM ReportsByDirections();") {
+                reports = it.parseReport()
+            }
+        }
+        return reports.orEmpty()
+    }
+
+    override fun getReportsByCathedras(): List<DBReport> {
+        var reports: List<DBReport>? = null
+        transaction {
+            exec("SELECT * FROM ReportsByCathedras();") {
+                reports = it.parseReport()
+            }
+        }
+        return reports.orEmpty()
+    }
+
+    override fun getReportsByDirectors(): List<DBReport> {
+        var reports: List<DBReport>? = null
+        transaction {
+            exec("SELECT * FROM ReportsByDirectors();") {
+                reports = it.parseReport()
+            }
+        }
+        return reports.orEmpty()
+    }
+
+    private fun ResultSet.parseReport(): List<DBReport> {
+        val list = mutableListOf<DBReport>()
+        while (this.next()) {
+            list.add(DBReport(this.getString(DBReport.NAME), this.getInt(DBReport.COUNT)))
+        }
+        return list
     }
 }
