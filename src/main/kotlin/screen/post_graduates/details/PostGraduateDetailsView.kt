@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import config.EMPTY_ID
 import data.Resource
+import data.model.PostGraduate
 import data.model.PostGraduateDetails
 import data.model.Reward
 import data.model.ScientificPublication
@@ -55,7 +56,21 @@ private fun CardView(
     viewModel: PostGraduateDetailsViewModel
 ) {
     Column(modifier) {
-        BigText(text = "${postGraduate.name} ${postGraduate.surname}")
+        Row(Modifier.fillMaxWidth()) {
+            BigText(Modifier.weight(1f), text = "${postGraduate.name} ${postGraduate.surname}")
+            Icon(Icons.Default.Edit, "edit", Modifier.clickable {
+                val state = NavState.PostGraduateEdit
+                state.payload = PostGraduate(
+                    postGraduate.id,
+                    postGraduate.name,
+                    postGraduate.surname,
+                    postGraduate.scientificDirector?.id ?: EMPTY_ID,
+                    postGraduate.scientificDirection?.id ?: EMPTY_ID,
+                    postGraduate.category?.id ?: EMPTY_ID
+                )
+                viewModel.navigation(state)
+            })
+        }
         postGraduate.scientificDirector?.let {
             it.cathedra?.let { cathedra ->
                 ItemView("Кафедра:", cathedra.name)
