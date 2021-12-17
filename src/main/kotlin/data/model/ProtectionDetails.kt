@@ -1,13 +1,13 @@
 package data.model
 
-import java.util.*
+import java.time.LocalDate
 
 /**
  * Защита
  */
 data class ProtectionDetails(
     val id: Long,
-    val name: String,
-    val date: Date,
-    val diploma: DiplomaDetails,
+    val councilId: Long,
+    val date: LocalDate,
+    val diploma: Diploma?
 )

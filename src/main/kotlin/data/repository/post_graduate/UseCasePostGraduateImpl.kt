@@ -56,6 +56,10 @@ class UseCasePostGraduateImpl(private val dao: DAO) : UseCasePostGraduate {
         return dao.deleteCategory(category)
     }
 
+    override suspend fun getDirections(): List<ScientificDirection> {
+        return dao.getDirections()
+    }
+
     override suspend fun insertDirection(direction: ScientificDirection): Long {
         return dao.insertDirection(direction)
     }

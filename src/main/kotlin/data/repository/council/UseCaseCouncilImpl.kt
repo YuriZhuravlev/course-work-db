@@ -3,6 +3,7 @@ package data.repository.council
 import data.db.DAO
 import data.model.Diploma
 import data.model.Protection
+import data.model.ProtectionDetails
 import data.model.ScientificCouncil
 
 class UseCaseCouncilImpl(private val dao: DAO) : UseCaseCouncil {
@@ -44,5 +45,9 @@ class UseCaseCouncilImpl(private val dao: DAO) : UseCaseCouncil {
 
     override suspend fun deleteCouncil(council: ScientificCouncil) {
         dao.deleteCouncil(council)
+    }
+
+    override suspend fun getProtectionsByCouncil(councilId: Long): List<ProtectionDetails> {
+        return dao.getProtectionsByCouncil(councilId)
     }
 }

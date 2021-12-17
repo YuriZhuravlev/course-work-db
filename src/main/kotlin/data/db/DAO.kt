@@ -1,23 +1,29 @@
 package data.db
 
+import data.db.entity.DBReport
 import data.model.*
 
 interface DAO {
     fun getCategories(): List<Category>
     fun getCathedras(): List<Cathedra>
     fun getCouncils(): List<ScientificCouncil>
+    fun getDirections(): List<ScientificDirection>
+    fun getDirectors(): List<ScientificDirector>
 
     fun getPublicationsByDirector(id: Long): List<ScientificPublication>
     fun getPublicationsByPostGraduate(id: Long): List<ScientificPublication>
     fun getRewardsByPostGraduate(id: Long): List<Reward>
     fun getDiplomasByPostGraduate(id: Long): List<Diploma>
 
+    fun getDirectorsByCathedra(id: Long): List<ScientificDirector>
     fun getPostGraduatesByCategory(id: Long): List<PostGraduate>
     fun getPostGraduatesByCathedra(id: Long): List<PostGraduate>
     fun getPostGraduatesByDirector(id: Long): List<PostGraduate>
 
     fun getPostGraduateDetails(id: Long): PostGraduateDetails?
     fun getDirectorDetails(id: Long): ScientificDirectorDetails?
+
+    fun getProtectionsByCouncil(councilId: Long): List<ProtectionDetails>
 
     fun insertCategory(category: Category): Long
     fun updateCategory(category: Category)
@@ -58,4 +64,9 @@ interface DAO {
     fun insertPublication(publication: ScientificPublication): Long
     fun updatePublication(publication: ScientificPublication)
     fun deletePublication(publication: ScientificPublication)
+
+    fun getReportsByCategories(): List<DBReport>
+    fun getReportsByDirections(): List<DBReport>
+    fun getReportsByCathedras(): List<DBReport>
+    fun getReportsByDirectors(): List<DBReport>
 }

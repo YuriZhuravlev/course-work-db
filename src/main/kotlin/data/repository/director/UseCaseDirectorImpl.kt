@@ -1,6 +1,7 @@
 package data.repository.director
 
 import data.db.DAO
+import data.model.Cathedra
 import data.model.ScientificDirector
 import data.model.ScientificDirectorDetails
 
@@ -19,5 +20,13 @@ class UseCaseDirectorImpl(private val dao: DAO) : UseCaseDirector {
 
     override suspend fun deleteDirector(director: ScientificDirector) {
         dao.deleteDirector(director)
+    }
+
+    override suspend fun getDirectorsByCathedra(cathedra: Cathedra): List<ScientificDirector> {
+        return dao.getDirectorsByCathedra(cathedra.id)
+    }
+
+    override suspend fun getDirectors(): List<ScientificDirector> {
+        return dao.getDirectors()
     }
 }

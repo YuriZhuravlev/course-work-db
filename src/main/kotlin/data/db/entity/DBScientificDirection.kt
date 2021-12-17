@@ -9,7 +9,7 @@ import org.jetbrains.exposed.dao.id.LongIdTable
  * Научное направление
  */
 class DBScientificDirection(id: EntityID<Long>): LongEntity(id) {
-    var name by CouncilTable.name
+    var name by DirectionTable.name
 
     companion object: LongEntityClass<DBScientificDirection>(DirectionTable)
 }

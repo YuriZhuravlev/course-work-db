@@ -7,6 +7,7 @@ import data.db.entity.*
 import data.model.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.sql.ResultSet
 
 object DAOPostgresql : DAO {
     private val db by lazy {
@@ -41,19 +42,34 @@ object DAOPostgresql : DAO {
 
     override fun getCategories(): List<Category> {
         return transaction {
-            DBCategory.all().map { Category(it.id.value, it.name) }
+            DBCategory.all().orderBy(CategoryTable.id to SortOrder.ASC).map { Category(it.id.value, it.name) }
         }
     }
 
     override fun getCathedras(): List<Cathedra> {
         return transaction {
-            DBCathedra.all().map { Cathedra(it.id.value, it.name) }
+            DBCathedra.all().orderBy(CathedraTable.id to SortOrder.ASC).map { Cathedra(it.id.value, it.name) }
         }
     }
 
     override fun getCouncils(): List<ScientificCouncil> {
         return transaction {
-            DBScientificCouncil.all().map { ScientificCouncil(it.id.value, it.name) }
+            DBScientificCouncil.all().orderBy(CouncilTable.id to SortOrder.ASC)
+                .map { ScientificCouncil(it.id.value, it.name) }
+        }
+    }
+
+    override fun getDirections(): List<ScientificDirection> {
+        return transaction {
+            DBScientificDirection.all().orderBy(DirectionTable.id to SortOrder.ASC)
+                .map { ScientificDirection(it.id.value, it.name) }
+        }
+    }
+
+    override fun getDirectors(): List<ScientificDirector> {
+        return transaction {
+            DBScientificDirector.all().orderBy(DirectorTable.id to SortOrder.ASC)
+                .map { ScientificDirector(it.id.value, it.name, it.surname, it.cathedraId) }
         }
     }
 
@@ -61,16 +77,17 @@ object DAOPostgresql : DAO {
         return transaction {
             val list = mutableListOf<ScientificPublication>()
             DBPostGraduate.find { PostGraduateTable.scientificDirectorId eq id }.forEach {
-                DBScientificPublication.find { PublicationTable.postGraduateId eq it.id.value }.forEach { publication ->
-                    list.add(
-                        ScientificPublication(
-                            publication.id.value,
-                            publication.name,
-                            publication.date,
-                            publication.postGraduateId
+                DBScientificPublication.find { PublicationTable.postGraduateId eq it.id.value }
+                    .orderBy(PublicationTable.id to SortOrder.ASC).forEach { publication ->
+                        list.add(
+                            ScientificPublication(
+                                publication.id.value,
+                                publication.name,
+                                publication.date,
+                                publication.postGraduateId
+                            )
                         )
-                    )
-                }
+                    }
             }
             list
         }
@@ -78,24 +95,26 @@ object DAOPostgresql : DAO {
 
     override fun getPublicationsByPostGraduate(id: Long): List<ScientificPublication> {
         return transaction {
-            DBScientificPublication.find { PublicationTable.postGraduateId eq id }.map {
-                ScientificPublication(it.id.value, it.name, it.date, it.postGraduateId)
-            }
+            DBScientificPublication.find { PublicationTable.postGraduateId eq id }
+                .orderBy(PublicationTable.id to SortOrder.ASC).map {
+                    ScientificPublication(it.id.value, it.name, it.date, it.postGraduateId)
+                }
         }
     }
 
     override fun getPostGraduatesByCategory(id: Long): List<PostGraduate> {
         return transaction {
-            DBPostGraduate.find { PostGraduateTable.categoryId eq id }.map {
-                PostGraduate(
-                    it.id.value,
-                    it.name,
-                    it.surname,
-                    it.scientificDirectorId,
-                    it.scientificDirectionId,
-                    it.categoryId
-                )
-            }
+            DBPostGraduate.find { PostGraduateTable.categoryId eq id }.orderBy(PostGraduateTable.id to SortOrder.ASC)
+                .map {
+                    PostGraduate(
+                        it.id.value,
+                        it.name,
+                        it.surname,
+                        it.scientificDirectorId,
+                        it.scientificDirectionId,
+                        it.categoryId
+                    )
+                }
         }
     }
 
@@ -103,7 +122,30 @@ object DAOPostgresql : DAO {
         return transaction {
             val list = mutableListOf<PostGraduate>()
             DBScientificDirector.find { DirectorTable.cathedraId eq id }.forEach {
-                DBPostGraduate.find { PostGraduateTable.scientificDirectorId eq it.id.value }.forEach { postGraduate ->
+                DBPostGraduate.find { PostGraduateTable.scientificDirectorId eq it.id.value }
+                    .orderBy(PostGraduateTable.id to SortOrder.ASC).forEach { postGraduate ->
+                        list.add(
+                            PostGraduate(
+                                postGraduate.id.value,
+                                postGraduate.name,
+                                postGraduate.surname,
+                                postGraduate.scientificDirectorId,
+                                postGraduate.scientificDirectionId,
+                                postGraduate.categoryId
+                            )
+                        )
+                    }
+            }
+            list
+        }
+    }
+
+    override fun getPostGraduatesByDirector(id: Long): List<PostGraduate> {
+        return transaction {
+            val list = mutableListOf<PostGraduate>()
+
+            DBPostGraduate.find { PostGraduateTable.scientificDirectorId eq id }
+                .orderBy(PostGraduateTable.id to SortOrder.ASC).forEach { postGraduate ->
                     list.add(
                         PostGraduate(
                             postGraduate.id.value,
@@ -115,27 +157,6 @@ object DAOPostgresql : DAO {
                         )
                     )
                 }
-            }
-            list
-        }
-    }
-
-    override fun getPostGraduatesByDirector(id: Long): List<PostGraduate> {
-        return transaction {
-            val list = mutableListOf<PostGraduate>()
-
-            DBPostGraduate.find { PostGraduateTable.scientificDirectorId eq id }.forEach { postGraduate ->
-                list.add(
-                    PostGraduate(
-                        postGraduate.id.value,
-                        postGraduate.name,
-                        postGraduate.surname,
-                        postGraduate.scientificDirectorId,
-                        postGraduate.scientificDirectionId,
-                        postGraduate.categoryId
-                    )
-                )
-            }
             list
         }
     }
@@ -186,7 +207,7 @@ object DAOPostgresql : DAO {
     override fun insertCategory(category: Category): Long {
         return transaction {
             CategoryTable.insertAndGetId {
-                it[name] = category.name
+                it[name] = category.name.let { if (it.length > 50) it.substring(0, 49) else it }
             }.value
         }
     }
@@ -194,7 +215,7 @@ object DAOPostgresql : DAO {
     override fun updateCategory(category: Category) {
         transaction {
             CategoryTable.update({ CategoryTable.id eq category.id }) {
-                it[name] = category.name
+                it[name] = category.name.let { if (it.length > 50) it.substring(0, 49) else it }
             }
         }
     }
@@ -208,7 +229,7 @@ object DAOPostgresql : DAO {
     override fun insertCathedra(cathedra: Cathedra): Long {
         return transaction {
             CathedraTable.insertAndGetId {
-                it[name] = cathedra.name
+                it[name] = cathedra.name.let { if (it.length > 50) it.substring(0, 49) else it }
             }.value
         }
     }
@@ -216,7 +237,7 @@ object DAOPostgresql : DAO {
     override fun updateCathedra(cathedra: Cathedra) {
         transaction {
             CathedraTable.update({ CathedraTable.id eq cathedra.id }) {
-                it[name] = cathedra.name
+                it[name] = cathedra.name.let { if (it.length > 50) it.substring(0, 49) else it }
             }
         }
     }
@@ -230,7 +251,7 @@ object DAOPostgresql : DAO {
     override fun insertDiploma(diploma: Diploma): Long {
         return transaction {
             DiplomaTable.insertAndGetId {
-                it[name] = diploma.name
+                it[name] = diploma.name.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[postGraduateId] = diploma.postGraduateId
                 it[protectionId] = diploma.protectionId
             }.value
@@ -240,7 +261,7 @@ object DAOPostgresql : DAO {
     override fun updateDiploma(diploma: Diploma) {
         transaction {
             DiplomaTable.update({ DiplomaTable.id eq diploma.id }) {
-                it[name] = diploma.name
+                it[name] = diploma.name.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[postGraduateId] = diploma.postGraduateId
                 it[protectionId] = diploma.protectionId
             }
@@ -256,9 +277,9 @@ object DAOPostgresql : DAO {
     override fun insertPostGraduate(postGraduate: PostGraduate): Long {
         return transaction {
             PostGraduateTable.insertAndGetId {
-                it[name] = postGraduate.name
+                it[name] = postGraduate.name.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[categoryId] = postGraduate.categoryId
-                it[surname] = postGraduate.surname
+                it[surname] = postGraduate.surname.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[scientificDirectionId] = postGraduate.scientificDirectionId
                 it[scientificDirectorId] = postGraduate.scientificDirectorId
             }.value
@@ -268,9 +289,9 @@ object DAOPostgresql : DAO {
     override fun updatePostGraduate(postGraduate: PostGraduate) {
         transaction {
             PostGraduateTable.update({ PostGraduateTable.id eq postGraduate.id }) {
-                it[name] = postGraduate.name
+                it[name] = postGraduate.name.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[categoryId] = postGraduate.categoryId
-                it[surname] = postGraduate.surname
+                it[surname] = postGraduate.surname.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[scientificDirectionId] = postGraduate.scientificDirectionId
                 it[scientificDirectorId] = postGraduate.scientificDirectorId
             }
@@ -310,7 +331,7 @@ object DAOPostgresql : DAO {
     override fun insertReward(reward: Reward): Long {
         return transaction {
             RewardTable.insertAndGetId {
-                it[name] = reward.name
+                it[name] = reward.name.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[date] = reward.date
                 it[postGraduateId] = reward.postGraduateId
             }.value
@@ -320,7 +341,7 @@ object DAOPostgresql : DAO {
     override fun updateReward(reward: Reward) {
         transaction {
             RewardTable.update({ RewardTable.id eq reward.id }) {
-                it[name] = reward.name
+                it[name] = reward.name.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[date] = reward.date
                 it[postGraduateId] = reward.postGraduateId
             }
@@ -336,7 +357,7 @@ object DAOPostgresql : DAO {
     override fun insertCouncil(council: ScientificCouncil): Long {
         return transaction {
             CouncilTable.insertAndGetId {
-                it[name] = council.name
+                it[name] = council.name.let { if (it.length > 50) it.substring(0, 49) else it }
             }.value
         }
     }
@@ -344,7 +365,7 @@ object DAOPostgresql : DAO {
     override fun updateCouncil(council: ScientificCouncil) {
         transaction {
             CouncilTable.update({ CouncilTable.id eq council.id }) {
-                it[name] = council.name
+                it[name] = council.name.let { if (it.length > 50) it.substring(0, 49) else it }
             }
         }
     }
@@ -358,7 +379,7 @@ object DAOPostgresql : DAO {
     override fun insertDirection(direction: ScientificDirection): Long {
         return transaction {
             DirectionTable.insertAndGetId {
-                it[name] = direction.name
+                it[name] = direction.name.let { if (it.length > 50) it.substring(0, 49) else it }
             }.value
         }
     }
@@ -366,7 +387,7 @@ object DAOPostgresql : DAO {
     override fun updateDirection(direction: ScientificDirection) {
         transaction {
             DirectionTable.update({ DirectionTable.id eq direction.id }) {
-                it[name] = direction.name
+                it[name] = direction.name.let { if (it.length > 50) it.substring(0, 49) else it }
             }
         }
     }
@@ -380,8 +401,8 @@ object DAOPostgresql : DAO {
     override fun insertDirector(director: ScientificDirector): Long {
         return transaction {
             DirectorTable.insertAndGetId {
-                it[name] = director.name
-                it[surname] = director.surname
+                it[name] = director.name.let { if (it.length > 50) it.substring(0, 49) else it }
+                it[surname] = director.surname.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[cathedraId] = director.cathedraId
             }.value
         }
@@ -390,8 +411,8 @@ object DAOPostgresql : DAO {
     override fun updateDirector(director: ScientificDirector) {
         transaction {
             DirectorTable.update({ DirectorTable.id eq director.id }) {
-                it[name] = director.name
-                it[surname] = director.surname
+                it[name] = director.name.let { if (it.length > 50) it.substring(0, 49) else it }
+                it[surname] = director.surname.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[cathedraId] = director.cathedraId
             }
         }
@@ -406,7 +427,7 @@ object DAOPostgresql : DAO {
     override fun insertPublication(publication: ScientificPublication): Long {
         return transaction {
             PublicationTable.insertAndGetId {
-                it[name] = publication.name
+                it[name] = publication.name.let { if (it.length > 50) it.substring(0, 49) else it }
                 it[date] = publication.date
                 it[postGraduateId] = publication.postGraduateId
             }.value
@@ -431,7 +452,7 @@ object DAOPostgresql : DAO {
 
     override fun getRewardsByPostGraduate(id: Long): List<Reward> {
         return transaction {
-            DBReward.find { RewardTable.postGraduateId eq id }.map {
+            DBReward.find { RewardTable.postGraduateId eq id }.orderBy(RewardTable.id to SortOrder.ASC).map {
                 Reward(
                     it.id.value,
                     it.name,
@@ -444,7 +465,7 @@ object DAOPostgresql : DAO {
 
     override fun getDiplomasByPostGraduate(id: Long): List<Diploma> {
         return transaction {
-            DBDiploma.find { DiplomaTable.postGraduateId eq id }.map {
+            DBDiploma.find { DiplomaTable.postGraduateId eq id }.orderBy(DiplomaTable.id to SortOrder.ASC).map {
                 Diploma(
                     it.id.value,
                     it.name,
@@ -453,5 +474,95 @@ object DAOPostgresql : DAO {
                 )
             }
         }
+    }
+
+    override fun getDirectorsByCathedra(id: Long): List<ScientificDirector> {
+        return transaction {
+            DBScientificDirector.find { DirectorTable.cathedraId eq id }.orderBy(DirectorTable.id to SortOrder.ASC)
+                .map {
+                    ScientificDirector(
+                        it.id.value,
+                        it.name,
+                        it.surname,
+                        it.cathedraId
+                    )
+                }
+        }
+    }
+
+    override fun getProtectionsByCouncil(councilId: Long): List<ProtectionDetails> {
+        return transaction {
+            val list = mutableListOf<ProtectionDetails>()
+            DBProtection.find { ProtectionTable.councilId eq councilId }.forEach {
+                var find = false
+                DBDiploma.find { DiplomaTable.protectionId eq it.id.value }.forEach { diploma ->
+                    find = true
+                    list.add(
+                        ProtectionDetails(
+                            it.id.value,
+                            it.councilId,
+                            it.date,
+                            Diploma(
+                                diploma.id.value,
+                                diploma.name,
+                                diploma.postGraduateId,
+                                diploma.protectionId
+                            )
+                        )
+                    )
+                }
+                if (!find)
+                    list.add(ProtectionDetails(it.id.value, it.councilId, it.date, null))
+            }
+            list
+        }
+    }
+
+    override fun getReportsByCategories(): List<DBReport> {
+        var reports: List<DBReport>? = null
+        transaction {
+            exec("SELECT * FROM ReportsByCategories();") {
+                reports = it.parseReport()
+            }
+        }
+        return reports.orEmpty()
+    }
+
+    override fun getReportsByDirections(): List<DBReport> {
+        var reports: List<DBReport>? = null
+        transaction {
+            exec("SELECT * FROM ReportsByDirections();") {
+                reports = it.parseReport()
+            }
+        }
+        return reports.orEmpty()
+    }
+
+    override fun getReportsByCathedras(): List<DBReport> {
+        var reports: List<DBReport>? = null
+        transaction {
+            exec("SELECT * FROM ReportsByCathedras();") {
+                reports = it.parseReport()
+            }
+        }
+        return reports.orEmpty()
+    }
+
+    override fun getReportsByDirectors(): List<DBReport> {
+        var reports: List<DBReport>? = null
+        transaction {
+            exec("SELECT * FROM ReportsByDirectors();") {
+                reports = it.parseReport()
+            }
+        }
+        return reports.orEmpty()
+    }
+
+    private fun ResultSet.parseReport(): List<DBReport> {
+        val list = mutableListOf<DBReport>()
+        while (this.next()) {
+            list.add(DBReport(this.getString(DBReport.NAME), this.getInt(DBReport.COUNT)))
+        }
+        return list
     }
 }
