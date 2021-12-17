@@ -6,5 +6,6 @@ package data.model
 data class ScientificDirector(
     val id: Long,
     val name: String,
-    val surname: String
+    val surname: String,
+    val cathedraId: Long
 )

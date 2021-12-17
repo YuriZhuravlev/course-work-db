@@ -1,16 +1,13 @@
 package data.model
 
-import java.util.*
+import java.time.LocalDate
 
 /**
  * Научная публикация
- * @param postGraduate имя аспиранта
- * @param scientificDirector имя руководителя
  */
 data class ScientificPublication(
     val id: Long,
     val name: String,
-    val date: Date,
-    val postGraduate: String,
-    val scientificDirector: String
+    val date: LocalDate,
+    val postGraduateId: Long
 )
