@@ -5,8 +5,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.5.31"
     id("org.jetbrains.compose") version "1.0.0"
-//    kotlin("kapt") version "1.6.0"
-//    kotlin("plugin.serialization") version "1.6.0"
 }
 
 group = "com.zhuravlev"

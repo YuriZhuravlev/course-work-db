@@ -72,7 +72,7 @@ private fun ColumnCouncil(
             Text("Защиты")
         }
         Icon(Icons.Default.Edit, "edit", Modifier.padding(start = 8.dp).clickable {
-            val state = NavState.CategoryEdit
+            val state = NavState.CouncilEdit
             state.payload = council
             onClick(state)
         }.align(Alignment.CenterVertically))

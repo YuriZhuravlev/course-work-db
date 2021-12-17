@@ -1,6 +1,7 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import base.DBColors
@@ -23,7 +24,11 @@ fun main() = application {
         modules(MainModule)
     }
 
-    Window(onCloseRequest = ::exitApplication, title = "Отдел аспирантуры ВУЗа") {
+    Window(
+        onCloseRequest = ::exitApplication,
+        title = "Отдел аспирантуры ВУЗа",
+        icon = painterResource("icon.png")
+    ) {
         window.setSize(1024, 768)
         App()
     }
